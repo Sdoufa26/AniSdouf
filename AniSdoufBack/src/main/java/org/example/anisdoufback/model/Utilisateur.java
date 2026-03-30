@@ -19,6 +19,9 @@ public class Utilisateur implements Serializable {
     @NotNull
     private String mail;
 
+    @NotNull
+    private String mdp;
+
     @OneToMany(mappedBy = "utilisateur")
     private Collection<NoteAnime> animes;
 
