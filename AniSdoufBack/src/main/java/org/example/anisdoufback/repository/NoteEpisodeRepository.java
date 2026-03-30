@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface NoteEpisodeRepository extends JpaRepository<NoteEpisode, Integer> {
+public interface NoteEpisodeRepository extends JpaRepository<NoteEpisode, Integer> {
 
 }

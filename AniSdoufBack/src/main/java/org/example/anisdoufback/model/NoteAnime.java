@@ -1,6 +1,8 @@
 package org.example.anisdoufback.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +20,15 @@ public class NoteAnime implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idNa;
 
+    @Min(0)
+    @Max(10)
+    private int noteA;
+
+    @Enumerated(EnumType.STRING)
+    private StatutAnime statutA;
+
+    private boolean estFavori;
+
     @ManyToOne
     @JoinColumn(name = "idU")
     private Utilisateur utilisateur;
@@ -26,6 +37,8 @@ public class NoteAnime implements Serializable {
     @JoinColumn(name = "idA")
     private Anime anime;
 
-    private int noteA;
+    public enum StatutAnime {
+        A_VOIR, EN_COURS,TERMINEE
+    }
 
 }

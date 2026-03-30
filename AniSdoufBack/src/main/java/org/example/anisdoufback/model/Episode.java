@@ -23,7 +23,7 @@ public class Episode implements Serializable {
     private String titreE;
 
     @NotNull
-    private String numero;
+    private Integer numero;
 
     @ManyToOne
     @JoinColumn(name = "idA")

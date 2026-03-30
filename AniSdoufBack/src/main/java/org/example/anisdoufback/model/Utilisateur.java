@@ -30,9 +30,9 @@ public class Utilisateur implements Serializable {
     private String mdp;
 
     @OneToMany(mappedBy = "utilisateur")
-    private Collection<NoteAnime> animes;
+    private Collection<NoteAnime> notesA;
 
     @OneToMany(mappedBy = "utilisateur")
-    private Collection<NoteEpisode> episodes;
+    private Collection<NoteEpisode> notesE;
 
 }
