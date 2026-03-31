@@ -18,6 +18,7 @@ public class AnimeResponse implements Serializable {
     private String description;
     private String genre;
     private String image;
+    private Integer nbEpisodes;
     private Collection<EpisodeResponse> episodes;
     private Collection<NoteAnimeResponse> notesA;
 

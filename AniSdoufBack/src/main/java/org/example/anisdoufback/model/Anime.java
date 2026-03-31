@@ -30,6 +30,8 @@ public class Anime implements Serializable {
 
     private String genre;
 
+    private Integer nbEpisodes;
+
     @NotNull
     private String image;
 
