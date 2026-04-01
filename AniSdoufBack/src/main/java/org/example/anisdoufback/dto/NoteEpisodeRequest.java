@@ -13,11 +13,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class NoteEpisodeResponse implements Serializable {
-    private Integer idNe;
+public class NoteEpisodeRequest implements Serializable {
     private int noteE;
     private boolean estFavori;
     private NoteEpisode.StatutEpisode statutE;
     private UUID idU;
     private Integer idE;
+    private Integer idA;
 }

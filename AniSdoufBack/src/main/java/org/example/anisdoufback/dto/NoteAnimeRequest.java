@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.anisdoufback.model.NoteEpisode;
+import org.example.anisdoufback.model.Anime;
+import org.example.anisdoufback.model.NoteAnime;
+import org.example.anisdoufback.model.Utilisateur;
 
 import java.io.Serializable;
 import java.util.UUID;
@@ -13,11 +15,10 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class NoteEpisodeResponse implements Serializable {
-    private Integer idNe;
-    private int noteE;
+public class NoteAnimeRequest implements Serializable {
+    private int noteA;
+    private NoteAnime.StatutAnime statutA;
     private boolean estFavori;
-    private NoteEpisode.StatutEpisode statutE;
     private UUID idU;
-    private Integer idE;
+    private Integer idA;
 }

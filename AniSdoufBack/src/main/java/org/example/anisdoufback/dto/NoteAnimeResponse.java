@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.anisdoufback.model.NoteAnime;
 
 import java.io.Serializable;
 
@@ -15,6 +16,6 @@ public class NoteAnimeResponse implements Serializable {
     private Integer idNa;
     private int noteA;
     private boolean estFavori;
-    private String statutA;
+    private NoteAnime.StatutAnime statutA;
     private Integer idA;
 }
