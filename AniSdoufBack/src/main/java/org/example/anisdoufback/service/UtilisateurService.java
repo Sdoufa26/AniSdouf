@@ -43,6 +43,5 @@ public class UtilisateurService {
                 .pseudo(utilisateur.getPseudo())
                 .mail(utilisateur.getMail())
                 .build();
-
     }
 }
