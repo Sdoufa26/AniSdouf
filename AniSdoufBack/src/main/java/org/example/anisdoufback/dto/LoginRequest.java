@@ -13,14 +13,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UtilisateurRequest implements Serializable {
-    @NotBlank(message = "Veuillez saisir un pseudo")
-    private String pseudo;
-
-    @NotBlank(message = "Veuillez saisir une adresse mail")
-    @Email(message = "Le format de l'adresse est invalide")
+public class LoginRequest implements Serializable {
+    @NotBlank(message = "L'émail est requis")
+    @Email(message = "Le format est invalide")
     private String mail;
 
-    @NotBlank(message = "Veuillez saisir un mot de passe")
+    @NotBlank(message = "Le mot de passe est requis")
     private String mdp;
+
 }

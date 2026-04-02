@@ -1,9 +1,7 @@
 package org.example.anisdoufback.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.anisdoufback.dto.TokenResponse;
-import org.example.anisdoufback.dto.UtilisateurRequest;
-import org.example.anisdoufback.dto.UtilisateurResponse;
+import org.example.anisdoufback.dto.*;
 import org.example.anisdoufback.model.Utilisateur;
 import org.example.anisdoufback.repository.UtilisateurRepository;
 import org.example.anisdoufback.config.JwtUtil;
@@ -34,7 +32,7 @@ public class AuthService implements UserDetailsService {
                 .build();
     }
 
-    public UtilisateurResponse inscrire(UtilisateurRequest request) {
+    public UtilisateurResponse inscrire(RegisterRequest request) {
         if (utilisateurRepository.existsByMail(request.getMail())) {
             throw new IllegalArgumentException("Adresse mail déjà utilisée");
         }
@@ -42,14 +40,14 @@ public class AuthService implements UserDetailsService {
         Utilisateur nouvelUtilisateur = Utilisateur.builder()
                 .pseudo(request.getPseudo())
                 .mail(request.getMail())
-                .mdp(passwordEncoder.encode(request.getMdp())) // Hachage
+                .mdp(passwordEncoder.encode(request.getMdp()))
                 .build();
 
         Utilisateur utilisateurSauvegarde = utilisateurRepository.save(nouvelUtilisateur);
         return toUserResponse(utilisateurSauvegarde);
     }
 
-    public TokenResponse login(UtilisateurRequest request) {
+    public TokenResponse login(LoginRequest request) {
         Utilisateur utilisateur = utilisateurRepository.findByMail(request.getMail())
                 .orElseThrow(() -> new IllegalArgumentException("Email ou mot de passe incorrect"));
 
