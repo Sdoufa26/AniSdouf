@@ -19,6 +19,7 @@ public class NoteAnimeRequest implements Serializable {
     private int noteA;
     private NoteAnime.StatutAnime statutA;
     private boolean estFavori;
+    private int episodesVus;
     private UUID idU;
     private Integer idA;
 }

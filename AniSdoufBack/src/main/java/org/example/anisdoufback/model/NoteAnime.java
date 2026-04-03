@@ -29,6 +29,8 @@ public class NoteAnime implements Serializable {
 
     private boolean estFavori;
 
+    private int episodesVus;
+
     @ManyToOne
     @JoinColumn(name = "idU")
     private Utilisateur utilisateur;

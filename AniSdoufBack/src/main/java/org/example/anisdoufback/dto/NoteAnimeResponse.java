@@ -16,6 +16,7 @@ public class NoteAnimeResponse implements Serializable {
     private Integer idNa;
     private int noteA;
     private boolean estFavori;
+    private int episodesVus;
     private NoteAnime.StatutAnime statutA;
     private Integer idA;
 }
