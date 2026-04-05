@@ -25,7 +25,7 @@ public class EpisodeService {
 
         RestClient restClient = RestClient.create();
         JikanAnimeResponse reponseJikan = restClient.get()
-                .uri("https://api.jikan.moe/v4/anime/" + idA + "episodes/" + idE)
+                .uri("https://api.jikan.moe/v4/anime/" + idA + "/episodes/" + idE)
                 .retrieve()
                 .body(JikanAnimeResponse.class);
 
