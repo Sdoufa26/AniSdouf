@@ -19,4 +19,7 @@ public class UtilisateurResponse implements Serializable {
     private String mail;
     private Collection<NoteAnimeResponse> notesA;
     private Collection<NoteEpisodeResponse> notesE;
+    private long animesTermines;
+    private long animesEnCours;
+    private long totalRegardes;
 }

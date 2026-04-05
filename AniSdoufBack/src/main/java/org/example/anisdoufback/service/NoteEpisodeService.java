@@ -19,11 +19,12 @@ public class NoteEpisodeService {
     private final UtilisateurRepository utilisateurRepository;
     private final EpisodeService episodeService;
 
-    public NoteEpisodeResponse ajouterOuModifierNote(NoteEpisodeRequest noteEpisodeRequest){
-        Utilisateur utilisateur = utilisateurRepository.findById(noteEpisodeRequest.getIdU())
+    public NoteEpisodeResponse ajouterOuModifierNote(NoteEpisodeRequest noteEpisodeRequest, String mail){
+        Utilisateur utilisateur = utilisateurRepository.findByMail(mail)
                 .orElseThrow(()-> new RuntimeException("Utilisateur introuvable"));
 
-        Episode episode = episodeService.getEpisode(noteEpisodeRequest.getIdE(), noteEpisodeRequest.getIdA());
+        noteEpisodeRequest.setIdU(utilisateur.getIdU());
+        Episode episode = episodeService.getEpisodeEntity(noteEpisodeRequest.getIdA(), noteEpisodeRequest.getIdE());
 
         Optional <NoteEpisode> noteEpisodeOptional = noteEpisodeRepository
                 .findByUtilisateur_IdUAndEpisode_IdE(noteEpisodeRequest.getIdU(), noteEpisodeRequest.getIdE());
@@ -51,7 +52,6 @@ public class NoteEpisodeService {
 
     private NoteEpisodeResponse toUserResponse(NoteEpisode noteEpisode){
         return NoteEpisodeResponse.builder()
-                .idE(noteEpisode.getIdNe())
                 .idU(noteEpisode.getUtilisateur().getIdU())
                 .idE(noteEpisode.getEpisode().getIdE())
                 .noteE(noteEpisode.getNoteE())

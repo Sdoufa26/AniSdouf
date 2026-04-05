@@ -2,7 +2,9 @@ package org.example.anisdoufback.service;
 
 import lombok.RequiredArgsConstructor;
 import org.example.anisdoufback.dto.UtilisateurResponse;
+import org.example.anisdoufback.model.NoteAnime;
 import org.example.anisdoufback.model.Utilisateur;
+import org.example.anisdoufback.repository.NoteAnimeRepository;
 import org.example.anisdoufback.repository.UtilisateurRepository;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +12,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class UtilisateurService {
     private final UtilisateurRepository utilisateurRepository;
+    private final NoteAnimeRepository noteAnimeRepository;
 
-    // Code métier prochainement
+    public UtilisateurResponse getMonProfil(String email) {
+        Utilisateur utilisateur = utilisateurRepository.findByMail(email)
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
-    private UtilisateurResponse toUserResponse(Utilisateur utilisateur){
+        long termines = noteAnimeRepository.countUtilisateur_IdUAndStatutA(utilisateur.getIdU(), NoteAnime.StatutAnime.TERMINEE);
+        long enCours = noteAnimeRepository.countUtilisateur_IdUAndStatutA(utilisateur.getIdU(), NoteAnime.StatutAnime.EN_COURS);
+
         return UtilisateurResponse.builder()
                 .idU(utilisateur.getIdU())
-                .pseudo(utilisateur.getPseudo())
                 .mail(utilisateur.getMail())
+                .pseudo(utilisateur.getPseudo())
+                .animesTermines(termines)
+                .animesEnCours(enCours)
+                .totalRegardes(termines + enCours)
                 .build();
     }
 }
