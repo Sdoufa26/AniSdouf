@@ -18,8 +18,8 @@ public class UtilisateurService {
         Utilisateur utilisateur = utilisateurRepository.findByMail(email)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
-        long termines = noteAnimeRepository.countUtilisateur_IdUAndStatutA(utilisateur.getIdU(), NoteAnime.StatutAnime.TERMINEE);
-        long enCours = noteAnimeRepository.countUtilisateur_IdUAndStatutA(utilisateur.getIdU(), NoteAnime.StatutAnime.EN_COURS);
+        long termines = noteAnimeRepository.countByUtilisateur_IdUAndStatutA(utilisateur.getIdU(), NoteAnime.StatutAnime.TERMINEE);
+        long enCours = noteAnimeRepository.countByUtilisateur_IdUAndStatutA(utilisateur.getIdU(), NoteAnime.StatutAnime.EN_COURS);
 
         return UtilisateurResponse.builder()
                 .idU(utilisateur.getIdU())

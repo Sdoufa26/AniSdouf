@@ -12,7 +12,7 @@ import java.util.UUID;
 public interface NoteAnimeRepository extends JpaRepository<NoteAnime, Integer> {
     Optional<NoteAnime> findByUtilisateur_IdUAndAnime_IdA(UUID idU, Integer idA);
 
-    long countUtilisateur_IdUAndStatutA(UUID idU, NoteAnime.StatutAnime statutA);
+    long countByUtilisateur_IdUAndStatutA(UUID idU, NoteAnime.StatutAnime statutA);
 
     List<NoteAnime> findByUtilisateur_IdU(UUID idU);
 }
