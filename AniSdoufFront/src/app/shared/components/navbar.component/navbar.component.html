@@ -1,0 +1,16 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a routerLink="/" class="logo">AniSdouf</a>
+  </div>
+
+  <ul class="navbar-menu">
+    <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Accueil</a></li>
+    <li><a routerLink="/my-list" routerLinkActive="active">Ma Liste</a></li>
+    <li><a routerLink="/profile" routerLinkActive="active">Mon Profil</a></li>
+  </ul>
+
+  <div class="navbar-auth">
+    <a routerLink="/login" class="btn btn-outline">Connexion</a>
+    <a routerLink="/register" class="btn btn-primary">Inscription</a>
+  </div>
+</nav>

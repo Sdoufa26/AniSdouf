@@ -1,0 +1,98 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { Observable, tap } from 'rxjs';
+
+// ── Interfaces pour l'API d'authentification ──
+
+export interface LoginRequest {
+  mail: string;
+  mdp: string;
+}
+
+export interface RegisterRequest {
+  pseudo: string;
+  mail: string;
+  mdp: string;
+}
+
+export interface TokenResponse {
+  accessToken: string;
+  tokenType: string;
+}
+
+export interface UtilisateurResponse {
+  idU: string;
+  pseudo: string;
+  mail: string;
+  animesTermines: string;
+  animesEnCours: string;
+  totalRegardes: string;
+}
+
+@Injectable({ providedIn: 'root' })
+export class AuthService {
+
+  private readonly API = 'http://localhost:8080/api/auth';
+  private readonly TOKEN_KEY = 'token-anisdouf';
+
+  // Le token est lu depuis sessionStorage au démarrage du service
+  private cachedUser: UtilisateurResponse | null = null;
+
+  constructor(private http: HttpClient, private router: Router) {}
+
+  /** Authentifie l'utilisateur et stocke le JWT dans sessionStorage */
+  login(request: LoginRequest): Observable<TokenResponse> {
+    return this.http.post<TokenResponse>(`${this.API}/login`, request).pipe(
+      tap(response => {
+        sessionStorage.setItem(this.TOKEN_KEY, response.accessToken);
+      })
+    );
+  }
+
+  /** Inscrit un nouvel utilisateur */
+  register(request: RegisterRequest): Observable<UtilisateurResponse> {
+    return this.http.post<UtilisateurResponse>(`${this.API}/register`, request);
+  }
+
+  /** Récupère le profil de l'utilisateur connecté et le met en cache */
+  getProfile(): Observable<UtilisateurResponse> {
+    return this.http.get<UtilisateurResponse>(`http://localhost:8080/api/profil`).pipe(
+      tap(user => {
+        this.cachedUser = user;
+      })
+    );
+  }
+
+  /** Retourne le token JWT depuis sessionStorage (ou null) */
+  getToken(): string | null {
+    return sessionStorage.getItem(this.TOKEN_KEY);
+  }
+  /** Vérifie si le token dans sessionStorage existe et n'est pas expiré */
+  isAuthenticated(): boolean {
+    const token = sessionStorage.getItem(this.TOKEN_KEY);
+    if (!token) return false;
+
+    try {
+      // Décode le payload JWT pour vérifier l'expiration
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expiresAt = payload.exp * 1000; // exp est en secondes
+      return Date.now() < expiresAt;
+    } catch {
+      // Si le token est malformé, on considère qu'il est invalide
+      return false;
+    }
+  }
+
+  /** Alias pour compatibilité — vérifie si l'utilisateur est connecté */
+  isLoggedIn(): boolean {
+    return this.isAuthenticated();
+  }
+
+  /** Déconnecte l'utilisateur, supprime le token de sessionStorage et redirige */
+  logout(): void {
+    sessionStorage.removeItem(this.TOKEN_KEY);
+    this.cachedUser = null;
+    this.router.navigate(['/auth/login']);
+  }
+}
