@@ -25,6 +25,16 @@
       <div class="error-banner">{{ error }}</div>
     }
 
+    @if (!loading && animes.length > 0) {
+      <h2 style="color: #333; margin-bottom: 20px; font-size: 20px;">
+        @if (modeSuggestion) {
+          Animés populaires recommandés pour toi
+        } @else {
+          Résultats de la recherche
+        }
+      </h2>
+    }
+
     <div class="anime-grid">
       @for (anime of animes; track anime.idA) {
         <div class="anime-card">

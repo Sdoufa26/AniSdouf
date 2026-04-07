@@ -8,6 +8,7 @@ import org.example.anisdoufback.model.Anime;
 import org.example.anisdoufback.service.AnimeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,17 @@ public class AnimeController {
         try {
             List<Anime> resultats = animeService.rechercherAnime(titre);
             return ResponseEntity.ok(resultats);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("erreur",e.getMessage()));
+        }
+    }
+
+    @GetMapping("/suggestions")
+    public ResponseEntity<?> getSuggestions(){
+        try {
+            String mail = SecurityContextHolder.getContext().getAuthentication().getName();
+            List<Anime> suggestions = animeService.getSuggestions(mail);
+            return ResponseEntity.ok(suggestions);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(Map.of("erreur",e.getMessage()));
         }

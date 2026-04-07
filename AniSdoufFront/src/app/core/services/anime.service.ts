@@ -36,4 +36,8 @@ export class AnimeService {
   ajouterOuModifierNote(noteAnimeRequest : NoteAnimeRequest) : Observable<any> {
     return this.httpClient.post(this.API_NOTES, noteAnimeRequest)
   }
+
+  getSuggestions(): Observable<Anime[]> {
+    return this.httpClient.get<Anime[]>(`${this.API_ANIMES}/suggestions`);
+  }
 }
