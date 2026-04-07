@@ -1,0 +1,33 @@
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #E5E7EB;
+}
+
+.main-content {
+  flex-grow: 1;
+  margin-left: 250px;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.dashboard-header .subtitle {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 32px;
+}
+
+.content-area {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.placeholder-box {
+  background: white;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  color: #888;
+}

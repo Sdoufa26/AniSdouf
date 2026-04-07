@@ -1,5 +1,6 @@
 <nav class="navbar">
   <div class="navbar-brand">
+    <img src="/logoAniSdouf.png" alt="AniSdouf Logo" class="nav-logo" />
     <a routerLink="/" class="logo">AniSdouf</a>
   </div>
 
@@ -10,7 +11,8 @@
   </ul>
 
   <div class="navbar-auth">
-    <a routerLink="/login" class="btn btn-outline">Connexion</a>
-    <a routerLink="/register" class="btn btn-primary">Inscription</a>
+    <button (click)="onLogout()" class="btn btn-logout">
+      Déconnexion
+    </button>
   </div>
 </nav>

@@ -93,6 +93,6 @@ export class AuthService {
   logout(): void {
     sessionStorage.removeItem(this.TOKEN_KEY);
     this.cachedUser = null;
-    this.router.navigate(['/auth/login']);
+    this.router.navigate(['/login']);
   }
 }
