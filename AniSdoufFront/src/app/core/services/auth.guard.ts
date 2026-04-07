@@ -19,7 +19,7 @@ export const authGuard: CanActivateFn = () => {
 
 /**
  * Guard pour les routes publiques d'authentification (login, register…)
- * Redirige vers /dashboard si l'utilisateur est déjà connecté
+ * Redirige vers /home si l'utilisateur est déjà connecté
  */
 export const guestGuard: CanActivateFn = () => {
   const auth = inject(AuthService);
@@ -28,6 +28,6 @@ export const guestGuard: CanActivateFn = () => {
   if (!auth.isLoggedIn()) {
     return true;
   }
-  router.navigate(['/my-list']);
+  router.navigate(['/']);
   return false;
 };

@@ -1,1 +1,41 @@
-<p>home.component works!</p>
+<div class="dashboard-layout">
+  <app-navbar></app-navbar>
+
+  <main class="main-content">
+    <header class="dashboard-header">
+      <h1>Rechercher un animé</h1>
+      <p class="subtitle">Trouve tes animés préférés et ajoute-les à ta collection.</p>
+
+      <div class="search-bar">
+        <input
+          type="text"
+          placeholder="Ex: Naruto, One Piece..."
+          [(ngModel)]="recherche"
+          (keyup.enter)="onSearch()"
+        />
+        <button (click)="onSearch()" [disabled]="loading">Chercher</button>
+      </div>
+    </header>
+
+    @if (loading) {
+      <div class="loader">Recherche en cours...</div>
+    }
+
+    @if (error) {
+      <div class="error-banner">{{ error }}</div>
+    }
+
+    <div class="anime-grid">
+      @for (anime of animes; track anime.idA) {
+        <div class="anime-card">
+          <img [src]="anime.image" [alt]="anime.titreA" class="anime-image">
+          <div class="anime-info">
+            <h3 class="anime-title">{{ anime.titreA }}</h3>
+            <span class="anime-episodes">{{ anime.nbEpisodes }} épisodes • {{ anime.genre }}</span>
+            <button class="btn-add" (click)="onAddToList(anime.idA)">+ Ajouter</button>
+          </div>
+        </div>
+      }
+    </div>
+  </main>
+</div>

@@ -24,20 +24,19 @@ export class LoginComponent {
       this.errorMessage = 'Veuillez remplir tous les champs.';
       return;
     }
-
     this.loading = true;
     this.errorMessage = '';
 
     this.authService.login({ mail: this.mail, mdp: this.mdp }).subscribe({
       next: () => {
         this.authService.getProfile().subscribe({
-          next: () => this.router.navigate(['/my-list']),
-          error: () => this.router.navigate(['/my-list'])
+          next: () => this.router.navigate(['/']),
+          error: () => this.router.navigate(['/'])
         });
       },
       error: (err) => {
         this.loading = false;
-        this.errorMessage = err.error?.erreur ?? 'mail ou mot de passe incorrect.';
+        this.errorMessage = err.error?.erreur ?? 'Email ou mot de passe incorrect.';
       }
     });
   }
