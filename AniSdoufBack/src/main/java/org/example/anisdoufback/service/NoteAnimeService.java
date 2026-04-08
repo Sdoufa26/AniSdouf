@@ -37,13 +37,13 @@ public class NoteAnimeService {
             noteASauvegarder = noteAnimeOptional.get();
             noteASauvegarder.setNoteA(noteAnimeRequest.getNoteA());
             noteASauvegarder.setStatutA(noteAnimeRequest.getStatutA());
-            noteASauvegarder.setEstFavori(noteAnimeRequest.isEstFavori());
+            noteASauvegarder.setEstFavori(noteAnimeRequest.getEstFavori());
             noteASauvegarder.setEpisodesVus(noteAnimeRequest.getEpisodesVus());
         } else {
             noteASauvegarder = NoteAnime.builder()
                     .noteA(noteAnimeRequest.getNoteA())
                     .statutA(noteAnimeRequest.getStatutA())
-                    .estFavori(noteAnimeRequest.isEstFavori())
+                    .estFavori(noteAnimeRequest.getEstFavori())
                     .episodesVus(noteAnimeRequest.getEpisodesVus())
                     .utilisateur(utilisateur)
                     .anime(anime)
@@ -68,7 +68,7 @@ public class NoteAnimeService {
                 .idA(noteAnime.getAnime().getIdA())
                 .noteA(noteAnime.getNoteA())
                 .statutA(noteAnime.getStatutA())
-                .estFavori(noteAnime.isEstFavori())
+                .estFavori(noteAnime.getEstFavori())
                 .episodesVus(noteAnime.getEpisodesVus())
                 .build();
     }

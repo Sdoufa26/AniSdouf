@@ -22,14 +22,14 @@ public class NoteAnime implements Serializable {
 
     @Min(0)
     @Max(10)
-    private int noteA;
+    private Integer noteA;
 
     @Enumerated(EnumType.STRING)
     private StatutAnime statutA;
 
-    private boolean estFavori;
+    private Boolean estFavori;
 
-    private int episodesVus;
+    private Integer episodesVus;
 
     @ManyToOne
     @JoinColumn(name = "idU")

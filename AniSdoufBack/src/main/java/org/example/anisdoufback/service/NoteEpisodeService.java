@@ -34,12 +34,12 @@ public class NoteEpisodeService {
         if (noteEpisodeOptional.isPresent()){
             noteESauvegarder = noteEpisodeOptional.get();
             noteESauvegarder.setNoteE(noteEpisodeRequest.getNoteE());
-            noteESauvegarder.setEstFavori(noteEpisodeRequest.isEstFavori());
+            noteESauvegarder.setEstFavori(noteEpisodeRequest.getEstFavori());
             noteESauvegarder.setStatutE(noteEpisodeRequest.getStatutE());
         } else {
             noteESauvegarder = NoteEpisode.builder()
                     .noteE(noteEpisodeRequest.getNoteE())
-                    .estFavori(noteEpisodeRequest.isEstFavori())
+                    .estFavori(noteEpisodeRequest.getEstFavori())
                     .statutE(noteEpisodeRequest.getStatutE())
                     .utilisateur(utilisateur)
                     .episode(episode)
@@ -55,7 +55,7 @@ public class NoteEpisodeService {
                 .idU(noteEpisode.getUtilisateur().getIdU())
                 .idE(noteEpisode.getEpisode().getIdE())
                 .noteE(noteEpisode.getNoteE())
-                .estFavori(noteEpisode.isEstFavori())
+                .estFavori(noteEpisode.getEstFavori())
                 .statutE(noteEpisode.getStatutE())
                 .build();
     }

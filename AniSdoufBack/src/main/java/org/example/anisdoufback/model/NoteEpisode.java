@@ -22,9 +22,9 @@ public class NoteEpisode implements Serializable {
 
     @Min(0)
     @Max(10)
-    private int noteE;
+    private Integer noteE;
 
-    private boolean estFavori;
+    private Boolean estFavori;
 
     @Enumerated(EnumType.STRING)
     private StatutEpisode statutE;

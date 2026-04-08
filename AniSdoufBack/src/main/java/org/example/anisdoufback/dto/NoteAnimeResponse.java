@@ -14,9 +14,9 @@ import java.io.Serializable;
 @Builder
 public class NoteAnimeResponse implements Serializable {
     private Integer idNa;
-    private int noteA;
-    private boolean estFavori;
-    private int episodesVus;
+    private Integer noteA;
+    private Boolean estFavori;
+    private Integer episodesVus;
     private NoteAnime.StatutAnime statutA;
     private Integer idA;
 }
