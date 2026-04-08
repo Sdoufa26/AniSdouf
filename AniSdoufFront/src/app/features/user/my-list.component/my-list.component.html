@@ -3,16 +3,132 @@
 
   <main class="main-content">
     <header class="dashboard-header">
-      <p class="subtitle">Voici un résumé de ton activité AniSdouf.</p>
+      <p class="subtitle">Voici un résumé de ton activité AniSdouf, {{pseudo}}</p>
     </header>
 
     <div class="content-area">
-      <div class="placeholder-box">
-        <p>Ici, nous mettrons les statistiques de tes animés.</p>
-      </div>
-      <div class="placeholder-box">
-        <p>Ici, nous afficherons la grille de tes animés.</p>
-      </div>
+      @if (loading) {
+        <div class="placeholder-box">Chargement de ta collection...</div>
+      } @else if (listeTotale.length === 0) {
+        <div class="placeholder-box">
+          <p>Ta liste est vide pour le moment ! Va sur la page d'accueil pour ajouter des animés.</p>
+        </div>
+      } @else {
+        <div class="toolbar">
+          <div class="filter-group">
+            <label for="statusFilter">Statut :</label>
+            <select id="statusFilter" [(ngModel)]="filtreStatut" (change)="appliquerFiltresEtTri()">
+              <option value="TOUS">Tous mes animés</option>
+              <option value="A_VOIR">À voir</option>
+              <option value="EN_COURS">En cours</option>
+              <option value="TERMINEE">Terminé</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="favFilter">Favoris :</label>
+            <select id="favFilter" [(ngModel)]="filtreFavoris" (change)="appliquerFiltresEtTri()">
+              <option value="TOUS">Tous</option>
+              <option value="FAVORIS">Favoris uniquement</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="sortFilter">Trier par :</label>
+            <select id="sortFilter" [(ngModel)]="triActuel" (change)="appliquerFiltresEtTri()">
+              <option value="TITRE_ASC">Ordre alphabétique (A-Z)</option>
+              <option value="NOTE_DESC">Meilleures notes d'abord</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="anime-grid">
+          @for (note of listeAffichee; track note.idNa) {
+            <div class="anime-card">
+
+              <div class="image-container">
+                <img [src]="note.image" [alt]="note.titreA" class="anime-image">
+                <button class="star-btn" [class.active]="note.estFavori" (click)="toggleFavoriAnime(note, $event)">
+                  ★
+                </button>
+              </div>
+
+              <div class="anime-info">
+                <h3 class="anime-title">{{ note.titreA }}</h3>
+                <div class="status-badge {{ note.statutA }}">{{ note.statutA }}</div>
+                <span class="anime-episodes">{{ note.episodesVus }} / {{ note.nbEpisodes }} épisodes vus</span>
+
+                <button class="btn-episodes" (click)="ouvrirModalEpisodes(note)">
+                  Voir les épisodes
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
     </div>
+
+    @if (animeDeroule) {
+      <div class="modal-overlay" (click)="fermerModal()">
+        <div class="modal-box" (click)="$event.stopPropagation()">
+
+          <div class="modal-header">
+            <h2>Épisodes de {{ animeDeroule.titreA }}</h2>
+            <button class="close-btn" (click)="fermerModal()">&times;</button>
+          </div>
+
+          <div class="modal-body">
+            @if (loadingEpisodes) {
+              <div class="loader-episodes">Chargement des épisodes...</div>
+            } @else {
+
+              <div class="modal-table-grid modal-table-header">
+                <span class="ep-col-fav">★</span> <span class="ep-col-vu">Vu ?</span>
+                <span class="ep-col-num">N°</span>
+                <span class="ep-col-title">Titre</span>
+                <span class="ep-col-note">Note /10</span>
+              </div>
+
+              @for (ep of episodes; track ep.idE) {
+                <div class="modal-table-grid episode-row">
+
+                  <div class="ep-col-fav">
+                    <button class="star-btn-ep" [class.active]="ep.estFavori"
+                            (click)="ep.estFavori = !ep.estFavori; modifierEpisode(ep, checkboxEl.checked, noteEl.value)">
+                      ★
+                    </button>
+                  </div>
+
+                  <div class="ep-col-vu">
+                    <label class="ep-checkbox-container">
+                      <input type="checkbox" #checkboxEl
+                             [checked]="ep.estVu"
+                             (change)="modifierEpisode(ep, checkboxEl.checked, noteEl.value)">
+                      <span class="checkmark"></span>
+                    </label>
+                  </div>
+
+                  <span class="ep-col-num">{{ ep.numero }}</span>
+                  <span class="ep-col-title">{{ ep.titreE }}</span>
+
+                  <div class="ep-col-note">
+                    <input type="number" #noteEl class="ep-note-input" placeholder="---" min="0" max="10"
+                           [value]="ep.noteE || ''"
+                           (change)="modifierEpisode(ep, checkboxEl.checked, noteEl.value)">
+                  </div>
+                </div>
+              }
+            }
+          </div>
+
+          <div class="modal-footer">
+            <button class="btn-cancel" (click)="fermerModal()">Annuler</button>
+            <button class="btn-save" (click)="enregistrerNotes()" [disabled]="isSaving">
+              {{ isSaving ? 'Enregistrement...' : 'Enregistrer mes modifications' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    }
   </main>
 </div>

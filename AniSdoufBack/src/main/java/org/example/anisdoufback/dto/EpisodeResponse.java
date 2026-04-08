@@ -17,5 +17,6 @@ public class EpisodeResponse implements Serializable {
     private String titreE;
     private Integer numero;
     private Collection<NoteEpisodeResponse> notesE;
-
+    private Boolean estVu;
+    private Integer noteE;
 }

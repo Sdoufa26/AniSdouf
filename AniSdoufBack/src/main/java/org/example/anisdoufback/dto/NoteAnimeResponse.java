@@ -19,4 +19,7 @@ public class NoteAnimeResponse implements Serializable {
     private Integer episodesVus;
     private NoteAnime.StatutAnime statutA;
     private Integer idA;
+    private String titreA;
+    private String image;
+    private Integer nbEpisodes;
 }

@@ -31,3 +31,378 @@
   text-align: center;
   color: #888;
 }
+
+.anime-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+.anime-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+.anime-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+.anime-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.anime-title {
+  font-size: 16px;
+  color: #333;
+  margin: 0 0 8px 0;
+  font-weight: bold;
+}
+.anime-episodes {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  width: fit-content;
+}
+.status-badge.A_VOIR { background-color: #fef08a; color: #854d0e; }
+.status-badge.EN_COURS { background-color: #bfdbfe; color: #1e40af; }
+.status-badge.TERMINEE { background-color: #bbf7d0; color: #166534; }
+
+/* Bouton + Episodes */
+.btn-episodes {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: auto;
+}
+.btn-episodes:hover {
+  background-color: #e5e7eb;
+}
+
+.toolbar {
+  display: flex;
+  gap: 24px;
+  background-color: white;
+  padding: 16px 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-group label {
+  font-weight: bold;
+  color: #374151;
+}
+
+.filter-group select {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  outline: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filter-group select:focus {
+  border-color: #1E3A8A;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background-color: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #1f2937;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: #9ca3af;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #1f2937;
+}
+
+.modal-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  background-color: #f9fafb;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.modal-table-grid {
+  display: grid;
+  grid-template-columns: 40px 50px 50px 1fr 100px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+/* L'étoile dans le tableau des épisodes */
+.ep-col-fav {
+  justify-self: center;
+}
+
+.star-btn-ep {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #d1d5db; /* Gris par défaut */
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s;
+}
+
+.star-btn-ep:hover {
+  transform: scale(1.2);
+}
+
+.star-btn-ep.active {
+  color: #facc15; /* Jaune doré brillant */
+}
+
+/* Styles pour l'en-tête du tableau */
+.modal-table-header {
+  border-bottom: 2px solid #e5e7eb;
+  margin-bottom: 5px;
+}
+
+.modal-table-header span {
+  font-weight: bold;
+  font-size: 13px;
+  color: #374151;
+}
+
+/* Styles pour les lignes d'épisodes */
+.episode-row {
+  border-bottom: 1px solid #f3f4f6;
+  cursor: pointer;
+}
+
+.episode-row:hover {
+  background-color: #f9fafb;
+}
+
+/* Styles pour les colonnes spécifiques */
+.ep-col-vu {
+  justify-self: center; /* Centre la checkbox dans sa colonne */
+}
+
+.ep-col-num {
+  justify-self: center; /* Centre le numéro dans sa colonne */
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: bold;
+}
+
+.ep-col-title {
+  font-size: 13px;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Coupe le titre s'il est trop long avec "..." */
+}
+
+.ep-col-note {
+  justify-self: end; /* Aligne l'input à droite de sa colonne */
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Input de la note (révisé) */
+.ep-note-input {
+  width: 50px;
+  padding: 5px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 12px;
+  text-align: center;
+  outline: none;
+}
+
+.ep-note-input:focus {
+  border-color: #1e3a8a;
+}
+
+/* Checkbox personnalisée (révisée pour la grille) */
+.ep-checkbox-container {
+  display: block;
+  position: relative;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.ep-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #fff;
+  border: 2px solid #9ca3af;
+  border-radius: 50%;
+}
+
+.ep-checkbox-container input:checked ~ .checkmark {
+  background-color: #22c55e;
+  border-color: #22c55e;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.ep-checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.ep-checkbox-container .checkmark:after {
+  left: 6px;
+  top: 3px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.btn-cancel {
+  background: white;
+  border: 1px solid #d1d5db;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #374151;
+}
+
+.btn-cancel:hover { background-color: #f3f4f6; }
+
+.btn-save {
+  background-color: #1E3A8A;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-save:hover { background-color: #1e3a8aed; }
+.btn-save:disabled { background-color: #9ca3af; cursor: not-allowed; }
+
+.loader-episodes { text-align: center; color: #6b7280; padding: 20px; }
+
+.image-container {
+  position: relative; /* Indispensable pour placer l'étoile par-dessus */
+}
+
+/* L'étoile sur la carte animé */
+.star-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  color: #e5e7eb; /* Étoile grise par défaut */
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.star-btn:hover {
+  transform: scale(1.1);
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.star-btn.active {
+  color: #facc15; /* Jaune doré brillant */
+}

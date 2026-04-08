@@ -70,6 +70,9 @@ public class NoteAnimeService {
                 .statutA(noteAnime.getStatutA())
                 .estFavori(noteAnime.getEstFavori())
                 .episodesVus(noteAnime.getEpisodesVus())
+                .titreA(noteAnime.getAnime().getTitreA())
+                .image(noteAnime.getAnime().getImage())
+                .nbEpisodes(noteAnime.getAnime().getNbEpisodes())
                 .build();
     }
 
