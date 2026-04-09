@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../shared/components/navbar.component/navbar.component';
 import { AuthService } from '../../../core/services/auth.service';
 import { AnimeService, NoteAnimeResponse, EpisodeResponse, NoteEpisodeRequest, NoteAnimeRequest } from '../../../core/services/anime.service';
@@ -8,7 +9,7 @@ import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-my-list',
-  imports: [NavbarComponent, CommonModule, FormsModule],
+  imports: [NavbarComponent, CommonModule, FormsModule, RouterModule],
   templateUrl: './my-list.component.html',
   styleUrl: './my-list.component.css',
 })
@@ -152,15 +153,47 @@ export class MyListComponent implements OnInit {
 
     this.isSaving = true;
 
-    // On prépare toutes les requêtes d'un coup
+    let nouveauTotalVus = 0;
+    for (const ep of this.episodes) {
+      // Si l'utilisateur a modifié l'épisode, on regarde son nouveau statut
+      if (this.episodesModifies[ep.idE]) {
+        if (this.episodesModifies[ep.idE].statutE === 'TERMINEE') nouveauTotalVus++;
+      }
+      // Sinon, on garde son ancien statut de la base de données
+      else {
+        if (ep.estVu) nouveauTotalVus++;
+      }
+    }
+
+    let nouveauStatut: 'A_VOIR' | 'EN_COURS' | 'TERMINEE' = this.animeDeroule!.statutA;
+
+    if (nouveauTotalVus === 0) {
+      nouveauStatut = 'A_VOIR'; // 0 épisode = À voir
+    } else if (this.animeDeroule!.nbEpisodes && nouveauTotalVus === this.animeDeroule!.nbEpisodes) {
+      nouveauStatut = 'TERMINEE'; // Tous les épisodes vus = Terminé
+    } else {
+      nouveauStatut = 'EN_COURS'; // Entre 1 et la fin = En cours
+    }
+
+    const updateAnimeRequest: NoteAnimeRequest = {
+      idA: this.animeDeroule!.idA,
+      noteA: this.animeDeroule!.noteA,
+      statutA: nouveauStatut,
+      estFavori: this.animeDeroule!.estFavori,
+      episodesVus: nouveauTotalVus
+    };
+
+    // 3. ON RASSEMBLE TOUTES LES REQUÊTES
+    // On met les requêtes des épisodes...
     const appelsBackend = requetes.map(req => this.animeService.ajouterOuModifierNoteEpisode(req));
 
+    // ... ET on ajoute la requête de l'animé !
+    appelsBackend.push(this.animeService.ajouterOuModifierNote(updateAnimeRequest));
     // forkJoin attend que TOUTES les requêtes soient terminées
     forkJoin(appelsBackend).subscribe({
       next: () => {
         this.isSaving = false;
         this.fermerModal();
-        // Optionnel : tu peux recharger la liste ici pour mettre à jour le nombre d'épisodes vus sur la carte !
         this.ngOnInit();
       },
       error: (err) => {

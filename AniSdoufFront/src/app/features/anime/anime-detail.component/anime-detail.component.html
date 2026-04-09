@@ -1,1 +1,40 @@
-<p>anime-detail.component works!</p>
+<div class="dashboard-layout">
+  <app-navbar></app-navbar>
+
+  <main class="main-content">
+
+    <button class="btn-back" (click)="goBack()">← Retour</button>
+
+    @if (loading) {
+      <div class="placeholder-box">Chargement des détails...</div>
+    }
+
+    @if (error) {
+      <div class="error-banner">{{ error }}</div>
+    }
+
+    @if (anime) {
+      <div class="detail-container">
+        <div class="image-column">
+          <img [src]="anime.image" [alt]="anime.titreA" class="detail-poster">
+        </div>
+
+        <div class="info-column">
+          <h1 class="detail-title">{{ anime.titreA }}</h1>
+
+          <div class="detail-badges">
+            <span class="badge genre-badge">{{ anime.genre || 'Inconnu' }}</span>
+            <span class="badge ep-badge">{{ anime.nbEpisodes || '?' }} Épisodes</span>
+          </div>
+
+          <div class="synopsis-section">
+            <h3>Synopsis</h3>
+            <p class="synopsis-text">
+              {{ anime.description || 'Aucun synopsis disponible pour cet animé.' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    }
+  </main>
+</div>

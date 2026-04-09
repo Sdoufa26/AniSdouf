@@ -1,12 +1,13 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { NavbarComponent } from '../../../shared/components/navbar.component/navbar.component';
 import { AnimeService, Anime, NoteAnimeRequest } from '../../../core/services/anime.service';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, FormsModule, NavbarComponent],
+  imports: [CommonModule, FormsModule, NavbarComponent, RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

@@ -107,9 +107,27 @@ public class AnimeService {
                         anime.setImage(node.get("images").get("jpg").get("image_url").asText());
                     }
 
-                    // Petite astuce pour récupérer le premier genre de la liste
-                    if (node.has("genres") && node.get("genres").isArray() && !node.get("genres").isEmpty()) {
-                        anime.setGenre(node.get("genres").get(0).get("name").asText());
+                    List<String> labels = new ArrayList<>();
+
+                    // 1. On récupère tous les genres classiques (Action, Comédie, etc.)
+                    if (node.has("genres") && node.get("genres").isArray()) {
+                        for (JsonNode genreNode : node.get("genres")) {
+                            labels.add(genreNode.get("name").asText());
+                        }
+                    }
+
+                    // 2. On récupère toutes les démographies (Shounen, Seinen, etc.)
+                    if (node.has("demographics") && node.get("demographics").isArray()) {
+                        for (JsonNode demoNode : node.get("demographics")) {
+                            labels.add(demoNode.get("name").asText());
+                        }
+                    }
+
+                    // 3. On assemble le tout avec des virgules (ex: "Action, Adventure, Shounen")
+                    if (!labels.isEmpty()) {
+                        anime.setGenre(String.join(", ", labels));
+                    } else {
+                        anime.setGenre("Inconnu");
                     }
 
                     // 4. On sauvegarde dans notre base (le Frigo)
@@ -148,7 +166,7 @@ public class AnimeService {
                 for (JsonNode node : response.get("data")) {
                     int idA = node.get("mal_id").asInt();
 
-                    // 🛑 LE FILTRE MAGIQUE : Si l'utilisateur l'a déjà, on passe au suivant !
+                    // LE FILTRE MAGIQUE : Si l'utilisateur l'a déjà, on passe au suivant !
                     if (idsDejaDansListe.contains(idA)) {
                         continue;
                     }
@@ -166,8 +184,27 @@ public class AnimeService {
                     if (node.has("images") && node.get("images").has("jpg")) {
                         anime.setImage(node.get("images").get("jpg").get("image_url").asText());
                     }
-                    if (node.has("genres") && node.get("genres").isArray() && !node.get("genres").isEmpty()) {
-                        anime.setGenre(node.get("genres").get(0).get("name").asText());
+                    List<String> labels = new ArrayList<>();
+
+                    // 1. On récupère tous les genres classiques (Action, Comédie, etc.)
+                    if (node.has("genres") && node.get("genres").isArray()) {
+                        for (JsonNode genreNode : node.get("genres")) {
+                            labels.add(genreNode.get("name").asText());
+                        }
+                    }
+
+                    // 2. On récupère toutes les démographies (Shounen, Seinen, etc.)
+                    if (node.has("demographics") && node.get("demographics").isArray()) {
+                        for (JsonNode demoNode : node.get("demographics")) {
+                            labels.add(demoNode.get("name").asText());
+                        }
+                    }
+
+                    // 3. On assemble le tout avec des virgules (ex: "Action, Adventure, Shounen")
+                    if (!labels.isEmpty()) {
+                        anime.setGenre(String.join(", ", labels));
+                    } else {
+                        anime.setGenre("Inconnu");
                     }
 
                     animeRepository.save(anime);

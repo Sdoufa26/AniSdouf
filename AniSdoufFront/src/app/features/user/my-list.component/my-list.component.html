@@ -3,7 +3,7 @@
 
   <main class="main-content">
     <header class="dashboard-header">
-      <p class="subtitle">Voici un résumé de ton activité AniSdouf, {{pseudo}}</p>
+      <p class="subtitle">Voici un résumé de ton activité, <span class="pseudo-highlight">{{pseudo}}</span></p>
     </header>
 
     <div class="content-area">
@@ -58,9 +58,10 @@
                 <div class="status-badge {{ note.statutA }}">{{ note.statutA }}</div>
                 <span class="anime-episodes">{{ note.episodesVus }} / {{ note.nbEpisodes }} épisodes vus</span>
 
-                <button class="btn-episodes" (click)="ouvrirModalEpisodes(note)">
-                  Voir les épisodes
-                </button>
+                <div class="action-buttons">
+                  <button class="btn-episodes" (click)="ouvrirModalEpisodes(note)">Voir les épisodes</button>
+                  <button class="btn-details" [routerLink]="['/anime', note.idA]">Détails</button>
+                </div>
               </div>
             </div>
           }
@@ -83,7 +84,8 @@
             } @else {
 
               <div class="modal-table-grid modal-table-header">
-                <span class="ep-col-fav">★</span> <span class="ep-col-vu">Vu ?</span>
+                <span class="ep-col-fav">Favoris</span>
+                <span class="ep-col-vu">Vu ?</span>
                 <span class="ep-col-num">N°</span>
                 <span class="ep-col-title">Titre</span>
                 <span class="ep-col-note">Note /10</span>

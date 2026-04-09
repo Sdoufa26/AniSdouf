@@ -6,6 +6,7 @@ import { MyListComponent } from './features/user/my-list.component/my-list.compo
 import { HomeComponent } from './features/anime/home.component/home.component';
 import { ProfileComponent } from './features/user/profile.component/profile.component';
 import {authGuard, guestGuard} from './core/services/auth.guard';
+import {AnimeDetailComponent} from './features/anime/anime-detail.component/anime-detail.component';
 
 
 export const routes: Routes = [
@@ -16,6 +17,7 @@ export const routes: Routes = [
   // Routes privées
   {path: '', component : HomeComponent, canActivate: [authGuard]},
   {path: 'my-list', component : MyListComponent, canActivate: [authGuard]},
+  {path: 'anime/:id', component: AnimeDetailComponent, canActivate: [authGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [authGuard]},
 
   // Route par défaut

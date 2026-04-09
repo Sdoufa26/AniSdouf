@@ -65,6 +65,7 @@ public class NoteAnimeService {
 
     private NoteAnimeResponse toUserResponse(NoteAnime noteAnime){
         return NoteAnimeResponse.builder()
+                .idNa(noteAnime.getIdNa())
                 .idA(noteAnime.getAnime().getIdA())
                 .noteA(noteAnime.getNoteA())
                 .statutA(noteAnime.getStatutA())

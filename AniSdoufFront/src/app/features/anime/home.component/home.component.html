@@ -42,7 +42,10 @@
           <div class="anime-info">
             <h3 class="anime-title">{{ anime.titreA }}</h3>
             <span class="anime-episodes">{{ anime.nbEpisodes }} épisodes • {{ anime.genre }}</span>
-            <button class="btn-add" (click)="onAddToList(anime.idA)">+ Ajouter</button>
+            <div class="action-buttons">
+              <button class="btn-add" (click)="onAddToList(anime.idA)">+ Ajouter</button>
+              <button class="btn-details" [routerLink]="['/anime', anime.idA]">Infos</button>
+            </div>
           </div>
         </div>
       }

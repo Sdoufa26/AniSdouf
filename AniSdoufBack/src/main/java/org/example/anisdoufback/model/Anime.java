@@ -1,5 +1,6 @@
 package org.example.anisdoufback.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -35,9 +36,11 @@ public class Anime implements Serializable {
     @NotNull
     private String image;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "anime")
     private Collection<Episode> episodes;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "anime")
     private Collection<NoteAnime> notesA;
 }
