@@ -57,7 +57,9 @@
                 <h3 class="anime-title">{{ note.titreA }}</h3>
                 <div class="status-badge {{ note.statutA }}">{{ note.statutA }}</div>
                 <span class="anime-episodes">{{ note.episodesVus }} / {{ note.nbEpisodes }} épisodes vus</span>
-
+                @if (note.noteA != null) {
+                  <span class="anime-rating">⭐ {{ note.noteA }} / 10</span>
+                }
                 <div class="action-buttons">
                   <button class="btn-episodes" (click)="ouvrirModalEpisodes(note)">Voir les épisodes</button>
                   <button class="btn-details" [routerLink]="['/anime', note.idA]">Détails</button>
@@ -75,6 +77,10 @@
 
           <div class="modal-header">
             <h2>Épisodes de {{ animeDeroule.titreA }}</h2>
+            <div class="global-note-wrapper">
+              <label>Note globale de l'animé :</label>
+              <input type="number" [(ngModel)]="animeDeroule.noteA" min="0" max="10" class="global-note-input" placeholder="/10">
+            </div>
             <button class="close-btn" (click)="fermerModal()">&times;</button>
           </div>
 

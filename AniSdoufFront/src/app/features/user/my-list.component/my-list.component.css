@@ -439,3 +439,42 @@
   font-weight: bold;
   color: #1E3A8A;
 }
+
+.anime-rating {
+  font-size: 13px;
+  font-weight: bold;
+  color: #d97706; /* Un beau orange/doré pour ressortir */
+  margin-bottom: 12px;
+}
+
+/* Dans la Modale (L'input) */
+.header-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.global-note-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #4b5563;
+  font-weight: bold;
+}
+
+.global-note-input {
+  width: 60px;
+  padding: 6px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+  text-align: center;
+  font-size: 14px;
+  background-color: #f9fafb;
+}
+
+.global-note-input:focus {
+  border-color: #1E3A8A;
+  background-color: white;
+}
