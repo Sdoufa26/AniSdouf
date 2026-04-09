@@ -1,31 +1,81 @@
 <div class="dashboard-layout">
   <app-navbar></app-navbar>
 
-  <main class="main-content flex-center"> @if (loading) {
-    <div class="loader">Chargement de ton profil...</div>
-  }
+  <main class="main-content">
+
+    <header class="page-header">
+      <h1>Mon Profil</h1>
+      <p>Gère tes informations personnelles et ton apparence</p>
+    </header>
+
+    @if (loading) {
+      <div class="loader">Chargement de ton profil...</div>
+    }
 
     @if (profile) {
-      <div class="identity-card">
-        <div class="avatar-section">
-          <img [src]="profile.avatar" alt="Avatar" class="main-avatar">
-          <button class="btn-change-avatar" (click)="toggleAvatarSelector()">✏️ Changer</button>
+      <div class="content">
 
-          @if (showAvatarSelector) {
-            <div class="avatar-selector">
-              <p>Choisis ton avatar :</p>
-              <div class="avatar-grid">
-                @for (av of availableAvatars; track av) {
-                  <img [src]="av" class="avatar-option" (click)="selectAvatar(av)">
-                }
-              </div>
-            </div>
-          }
+        <div class="profile-header-card">
+          <img [src]="profile.avatar" alt="Avatar" class="avatar-large-img">
+          <div class="profile-header-info">
+            <h2>{{ profile.pseudo }}</h2>
+            <span class="role-badge">Membre d'AniSdouf</span>
+            <p class="member-since">Compte actif</p>
+          </div>
         </div>
 
-        <h1 class="pseudo">{{ profile.pseudo }}</h1>
-        <p class="email">{{ profile.mail }}</p>
-        <span class="badge">Membre d'AniSdouf</span>
+        <div class="sections-grid">
+
+          <div class="section-card">
+            <div class="section-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E3A8A" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <h3>Informations personnelles</h3>
+            </div>
+
+            <div class="info-list">
+              <div class="info-row">
+                <span class="info-label">Pseudo</span>
+                <span class="info-value">{{ profile.pseudo }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Adresse Email</span>
+                <span class="info-value">{{ profile.mail }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1E3A8A" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <h3>Ton Avatar</h3>
+
+              <button class="btn-edit" (click)="toggleAvatarSelector()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Changer
+              </button>
+            </div>
+
+            <div class="avatar-preview-container">
+              <img [src]="profile.avatar" class="current-avatar-preview">
+            </div>
+
+            @if (showAvatarSelector) {
+              <div class="avatar-selector-inline">
+                <p class="selector-title">Choisis ton nouvel avatar :</p>
+                <div class="avatar-grid">
+                  @for (av of availableAvatars; track av) {
+                    <img [src]="av"
+                         class="avatar-option"
+                         [class.selected]="profile.avatar === av"
+                         (click)="selectAvatar(av)">
+                  }
+                </div>
+              </div>
+            }
+          </div>
+
+        </div>
+
       </div>
     }
   </main>

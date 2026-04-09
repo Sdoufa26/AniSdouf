@@ -1,67 +1,173 @@
-.dashboard-layout { display: flex; min-height: 100vh; background-color: #E5E7EB; }
-.main-content { flex-grow: 1; margin-left: 250px; padding: 40px; box-sizing: border-box; }
-
-.flex-center {
+.dashboard-layout {
   display: flex;
+  min-height: 100vh;
+  background-color: #f4f6fb; /* Couleur de fond plus douce, type SaaS */
+}
+
+.main-content {
+  flex-grow: 1;
+  margin-left: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* === EN-TÊTE DE LA PAGE === */
+.page-header {
+  background: #fff;
+  padding: 24px 32px;
+  border-bottom: 1px solid #e8eef8;
+}
+.page-header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1E3A8A;
+  margin: 0 0 4px 0;
+}
+.page-header p {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+}
+
+/* === CONTENEUR PRINCIPAL === */
+.content {
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* === BANNIÈRE BLEUE DU PROFIL === */
+.profile-header-card {
+  background: #1E3A8A;
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 10px 25px rgba(30, 58, 138, 0.15);
+}
+.avatar-large-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255,255,255,0.2);
+}
+.profile-header-info h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px 0;
+}
+.role-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.member-since {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  margin: 8px 0 0 0;
+}
+
+/* === GRILLE DES CARTES === */
+.sections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* === CARTE DE SECTION === */
+.section-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f0f2f5;
+}
+.section-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1E3A8A;
+  margin: 0;
+  flex: 1;
+}
+
+/* === LISTE D'INFORMATIONS === */
+.info-list { display: flex; flex-direction: column; }
+.info-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 0; border-bottom: 1px solid #f7f8fc; gap: 12px;
+}
+.info-row:last-child { border-bottom: none; }
+.info-label { font-size: 14px; color: #888; font-weight: 500; }
+.info-value { font-size: 14px; color: #111827; font-weight: bold; }
+
+/* === BOUTON MODIFIER === */
+.btn-edit {
+  display: flex; align-items: center; gap: 6px;
+  background: none; border: 1px solid #e0e4ed; border-radius: 8px;
+  padding: 6px 14px; font-size: 13px; color: #1E3A8A;
+  cursor: pointer; transition: all 0.2s; font-weight: bold;
+}
+.btn-edit:hover { background: #eff6ff; border-color: #1E3A8A; }
+
+/* === SÉLECTION DE L'AVATAR === */
+.avatar-preview-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.current-avatar-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid #e5e7eb;
+  object-fit: cover;
+}
+
+.avatar-selector-inline {
+  background: #f9fafb;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+.selector-title {
+  font-size: 13px;
+  font-weight: bold;
+  color: #4b5563;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.avatar-grid {
+  display: flex;
+  gap: 12px;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 80px;
+  flex-wrap: wrap;
 }
-
-.identity-card {
-  background: white;
-  padding: 50px 40px;
-  border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-  text-align: center;
-  width: 350px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.avatar-option {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s, border 0.2s;
+  border: 2px solid transparent;
 }
+.avatar-option:hover { transform: scale(1.1); }
 
-.profile-container {
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
+/* Met en valeur l'avatar actuellement sélectionné */
+.avatar-option.selected {
+  border-color: #1E3A8A;
+  transform: scale(1.1);
 }
-
-/* --- GAUCHE : IDENTITÉ --- */
-.identity-column {
-  background: white;
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  text-align: center;
-  width: 300px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.avatar-section { position: relative; margin-bottom: 24px; }
-.main-avatar { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #1E3A8A; }
-
-.btn-change-avatar {
-  position: absolute; bottom: 0; right: 0;
-  background: white; border: 1px solid #ccc;
-  border-radius: 20px; padding: 6px 12px;
-  font-size: 12px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.avatar-selector {
-  position: absolute; top: 160px; left: 50%; transform: translateX(-50%);
-  background: white; padding: 16px; border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 250px; z-index: 10;
-}
-.avatar-grid { display: flex; gap: 12px; justify-content: center; margin-top: 10px; }
-.avatar-option { width: 50px; height: 50px; border-radius: 50%; cursor: pointer; transition: transform 0.2s; }
-.avatar-option:hover { transform: scale(1.1); border: 2px solid #1E3A8A; }
-
-.pseudo { font-size: 24px; color: #111827; margin: 0 0 8px 0; }
-.email { color: #6b7280; margin: 0 0 16px 0; }
-.badge { background: #e0e7ff; color: #3730a3; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; margin-bottom: 32px; }
-
-/* --- DROITE : STATS & TOP 3 --- */
-
