@@ -26,6 +26,8 @@ export class MyListComponent implements OnInit {
   loadingEpisodes = false;
   episodesModifies: { [idE: number]: NoteEpisodeRequest } = {};
   isSaving = false;
+  pageEpisodeActuelle = 1;
+  episodesParPage = 10;
 
   constructor(private authService : AuthService, private animeService : AnimeService, private cdr : ChangeDetectorRef) {}
 
@@ -106,7 +108,8 @@ export class MyListComponent implements OnInit {
   ouvrirModalEpisodes(anime: NoteAnimeResponse): void {
     this.animeDeroule = anime;
     this.loadingEpisodes = true;
-    this.episodesModifies = {}; // On vide les modifications précédentes
+    this.episodesModifies = {};
+    this.pageEpisodeActuelle = 1;
     this.cdr.detectChanges();
 
     this.animeService.getEpisodes(anime.idA).subscribe({
@@ -142,14 +145,32 @@ export class MyListComponent implements OnInit {
     };
   }
 
+  get episodesAffiches(): EpisodeResponse[] {
+    const start = (this.pageEpisodeActuelle - 1) * this.episodesParPage;
+    return this.episodes.slice(start, start + this.episodesParPage);
+  }
+
+  // Calcule le nombre de pages total
+  get totalPagesEpisodes(): number {
+    return Math.ceil(this.episodes.length / this.episodesParPage) || 1;
+  }
+
+  pagePrecedente(): void {
+    if (this.pageEpisodeActuelle > 1) {
+      this.pageEpisodeActuelle--;
+      this.cdr.detectChanges();
+    }
+  }
+
+  pageSuivante(): void {
+    if (this.pageEpisodeActuelle < this.totalPagesEpisodes) {
+      this.pageEpisodeActuelle++;
+      this.cdr.detectChanges();
+    }
+  }
+
   enregistrerNotes(): void {
     const requetes = Object.values(this.episodesModifies);
-
-    // Si l'utilisateur n'a rien touché, on ferme juste la modale
-    if (requetes.length === 0) {
-      this.fermerModal();
-      return;
-    }
 
     this.isSaving = true;
 

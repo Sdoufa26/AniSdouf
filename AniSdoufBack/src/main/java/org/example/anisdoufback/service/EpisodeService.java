@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import tools.jackson.databind.JsonNode;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,15 +32,12 @@ public class EpisodeService {
             JsonNode response = restTemplate.getForObject(url, JsonNode.class);
             if (response != null && response.has("data")) {
                 for (JsonNode node : response.get("data")) {
-                    int idE = node.get("mal_id").asInt();
-                    if (episodeRepository.findById(idE).isEmpty()) {
-                        Episode episode = new Episode();
-                        episode.setIdE(idE);
-                        episode.setTitreE(node.get("title").asText());
-                        episode.setNumero(idE);
-                        episode.setAnime(animeParent);
-                        episodeRepository.save(episode);
-                    }
+                    int numeroEp = node.get("mal_id").asInt();
+                    Episode episode = new Episode();
+                    episode.setTitreE(node.get("title").asText());
+                    episode.setNumero(numeroEp);
+                    episode.setAnime(animeParent);
+                    episodeRepository.save(episode);
                 }
             }
         } catch (Exception e) {
@@ -51,7 +47,7 @@ public class EpisodeService {
 
     public List<EpisodeResponse> getTousLesEpisodes(Integer idA, String mail) {
         Utilisateur utilisateur = utilisateurRepository.findByMail(mail)
-                .orElseThrow(() -> new RuntimeException("Utilisateur introuvanle"));
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
 
         List<Episode> listeEpisodes = episodeRepository.findByAnime_idA(idA);
         if (listeEpisodes.isEmpty()) {
@@ -74,7 +70,7 @@ public class EpisodeService {
 
     public EpisodeResponse getEpisode(Integer idA, Integer idE, String mail) {
         Utilisateur utilisateur = utilisateurRepository.findByMail(mail)
-                .orElseThrow(() -> new RuntimeException("Utilisateur introuvanle"));
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
         Episode episodeTrouve = getEpisodeEntity(idA, idE);
         return toUserResponse(episodeTrouve, utilisateur);
     }

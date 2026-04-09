@@ -18,6 +18,7 @@ import java.util.Collection;
 @Builder
 public class Episode implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idE;
 
     @NotNull

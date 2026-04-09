@@ -63,9 +63,4 @@ export class ProfileComponent implements OnInit{
       error: (err) => console.error("Erreur de sauvegarde de l'avatar", err)
     });
   }
-
-  logout(): void {
-    localStorage.removeItem('token'); // Ou la méthode que tu utilises pour vider ton token
-    this.router.navigate(['/login']);
-  }
 }

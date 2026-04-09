@@ -61,7 +61,7 @@
                   <span class="anime-rating">⭐ {{ note.noteA }} / 10</span>
                 }
                 <div class="action-buttons">
-                  <button class="btn-episodes" (click)="ouvrirModalEpisodes(note)">Voir les épisodes</button>
+                  <button class="btn-episodes" (click)="ouvrirModalEpisodes(note)">Noter</button>
                   <button class="btn-details" [routerLink]="['/anime', note.idA]">Détails</button>
                 </div>
               </div>
@@ -97,7 +97,7 @@
                 <span class="ep-col-note">Note /10</span>
               </div>
 
-              @for (ep of episodes; track ep.idE) {
+              @for (ep of episodesAffiches; track ep.idE) {
                 <div class="modal-table-grid episode-row">
 
                   <div class="ep-col-fav">
@@ -124,6 +124,13 @@
                            [value]="ep.noteE || ''"
                            (change)="modifierEpisode(ep, checkboxEl.checked, noteEl.value)">
                   </div>
+                </div>
+              }
+              @if (episodes.length > episodesParPage) {
+                <div class="pagination-container">
+                  <button class="btn-page" (click)="pagePrecedente()" [disabled]="pageEpisodeActuelle === 1">← Précédent</button>
+                  <span class="page-info">Page {{ pageEpisodeActuelle }} sur {{ totalPagesEpisodes }}</span>
+                  <button class="btn-page" (click)="pageSuivante()" [disabled]="pageEpisodeActuelle === totalPagesEpisodes">Suivant →</button>
                 </div>
               }
             }

@@ -1,0 +1,48 @@
+<div class="dashboard-layout">
+  <app-navbar></app-navbar>
+
+  <main class="main-content">
+    @if (loading) {
+      <div class="loader">Chargement de tes statistiques...</div>
+    }
+
+    @if (profile) {
+      <div class="stats-container">
+        <h2>Ton Tableau de Bord</h2>
+
+        <div class="stats-cards">
+          <div class="stat-card">
+            <span class="stat-number">{{ profile.totalRegardes }}</span>
+            <span class="stat-label">Animés dans la liste</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">{{ profile.animesTermines }}</span>
+            <span class="stat-label">Animés Terminés</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-number">{{ profile.animesEnCours }}</span>
+            <span class="stat-label">Animés en cours</span>
+          </div>
+        </div>
+
+        <h2 class="mt-40">Ton Top 3</h2>
+        @if (profile.topAnimes && profile.topAnimes.length > 0) {
+          <div class="top3-grid">
+            @for (anime of profile.topAnimes; track anime.idA; let i = $index) {
+              <div class="top3-card">
+                <div class="rank-badge">#{{ i + 1 }}</div>
+                <img [src]="anime.image" class="top3-image">
+                <div class="top3-info">
+                  <h3>{{ anime.titreA }}</h3>
+                  <span class="top3-note">⭐ {{ anime.noteA }} / 10</span>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="empty-top">Tu n'as pas encore noté d'animés !</p>
+        }
+      </div>
+    }
+  </main>
+</div>

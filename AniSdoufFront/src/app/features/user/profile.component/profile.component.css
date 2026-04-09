@@ -1,6 +1,25 @@
 .dashboard-layout { display: flex; min-height: 100vh; background-color: #E5E7EB; }
 .main-content { flex-grow: 1; margin-left: 250px; padding: 40px; box-sizing: border-box; }
 
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 80px;
+}
+
+.identity-card {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  text-align: center;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .profile-container {
   display: flex;
   gap: 40px;
@@ -44,34 +63,5 @@
 .email { color: #6b7280; margin: 0 0 16px 0; }
 .badge { background: #e0e7ff; color: #3730a3; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 13px; margin-bottom: 32px; }
 
-.btn-logout { background: #fee2e2; color: #991b1b; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; width: 100%; }
-.btn-logout:hover { background: #fecaca; }
-
 /* --- DROITE : STATS & TOP 3 --- */
-.stats-column { flex-grow: 1; }
-h2 { color: #111827; margin-top: 0; margin-bottom: 24px; }
-.mt-40 { margin-top: 40px; }
 
-.stats-cards { display: flex; gap: 24px; }
-.stat-card {
-  background: white; padding: 24px; border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05); flex-grow: 1; text-align: center;
-}
-.stat-number { display: block; font-size: 36px; font-weight: bold; color: #1E3A8A; margin-bottom: 8px; }
-.stat-label { color: #6b7280; font-weight: bold; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
-
-.top3-grid { display: flex; gap: 24px; }
-.top3-card {
-  background: white; border-radius: 12px; overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05); flex: 1; position: relative;
-}
-.rank-badge {
-  position: absolute; top: 12px; left: 12px; background: #facc15;
-  color: #854d0e; font-weight: bold; width: 30px; height: 30px;
-  display: flex; justify-content: center; align-items: center; border-radius: 50%;
-}
-.top3-image { width: 100%; height: 200px; object-fit: cover; }
-.top3-info { padding: 16px; text-align: center; }
-.top3-info h3 { margin: 0 0 8px 0; font-size: 16px; color: #111827; }
-.top3-note { font-weight: bold; color: #d97706; }
-.empty-top { color: #6b7280; font-style: italic; }

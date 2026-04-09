@@ -6,6 +6,7 @@ import org.example.anisdoufback.dto.NoteAnimeResponse;
 import org.example.anisdoufback.model.Anime;
 import org.example.anisdoufback.model.NoteAnime;
 import org.example.anisdoufback.model.Utilisateur;
+import org.example.anisdoufback.repository.AnimeRepository;
 import org.example.anisdoufback.repository.NoteAnimeRepository;
 import org.example.anisdoufback.repository.UtilisateurRepository;
 import org.springframework.stereotype.Service;
@@ -19,39 +20,27 @@ import java.util.UUID;
 public class NoteAnimeService {
     private final NoteAnimeRepository noteAnimeRepository;
     private final UtilisateurRepository utilisateurRepository;
+    private final AnimeRepository animeRepository;
     private final AnimeService animeService;
 
     public NoteAnimeResponse ajouterOuModifierNote(NoteAnimeRequest noteAnimeRequest, String mail){
         Utilisateur utilisateur = utilisateurRepository.findByMail(mail)
                 .orElseThrow(()-> new RuntimeException("Utilisateur introuvable"));
 
-        noteAnimeRequest.setIdU(utilisateur.getIdU());
-        Anime anime = animeService.getAnime(noteAnimeRequest.getIdA());
+        Anime anime = animeRepository.findById(noteAnimeRequest.getIdA())
+                .orElseThrow(() -> new RuntimeException("Animé introuvable"));
 
-        Optional<NoteAnime> noteAnimeOptional = noteAnimeRepository
-                .findByUtilisateur_IdUAndAnime_IdA(noteAnimeRequest.getIdU(), noteAnimeRequest.getIdA());
+        NoteAnime noteAnime = noteAnimeRepository.findByUtilisateur_IdUAndAnime_IdA(utilisateur.getIdU(), anime.getIdA())
+                .orElse(new NoteAnime());
 
-        NoteAnime noteASauvegarder;
+        noteAnime.setUtilisateur(utilisateur);
+        noteAnime.setAnime(anime);
+        noteAnime.setStatutA(noteAnimeRequest.getStatutA());
+        noteAnime.setEstFavori(noteAnimeRequest.getEstFavori());
+        noteAnime.setNoteA(noteAnimeRequest.getNoteA());
 
-        if (noteAnimeOptional.isPresent()){
-            noteASauvegarder = noteAnimeOptional.get();
-            noteASauvegarder.setNoteA(noteAnimeRequest.getNoteA());
-            noteASauvegarder.setStatutA(noteAnimeRequest.getStatutA());
-            noteASauvegarder.setEstFavori(noteAnimeRequest.getEstFavori());
-            noteASauvegarder.setEpisodesVus(noteAnimeRequest.getEpisodesVus());
-        } else {
-            noteASauvegarder = NoteAnime.builder()
-                    .noteA(noteAnimeRequest.getNoteA())
-                    .statutA(noteAnimeRequest.getStatutA())
-                    .estFavori(noteAnimeRequest.getEstFavori())
-                    .episodesVus(noteAnimeRequest.getEpisodesVus())
-                    .utilisateur(utilisateur)
-                    .anime(anime)
-                    .build();
-        }
-
-        NoteAnime noteSauvegardee = noteAnimeRepository.save(noteASauvegarder);
-        return toUserResponse(noteSauvegardee);
+        noteAnimeRepository.save(noteAnime);
+        return toUserResponse(noteAnime);
     }
 
     public List<NoteAnimeResponse> getMaListe(String mail){
