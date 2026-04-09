@@ -25,10 +25,13 @@ export interface UtilisateurResponse {
   idU: string;
   pseudo: string;
   mail: string;
-  animesTermines: string;
-  animesEnCours: string;
-  totalRegardes: string;
+  avatar: string;
+  animesTermines: number;
+  animesEnCours: number;
+  totalRegardes: number;
+  topAnimes: any[];
 }
+
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -62,6 +65,10 @@ export class AuthService {
         this.cachedUser = user;
       })
     );
+  }
+
+  updateAvatar(avatar: string): Observable<UtilisateurResponse> {
+    return this.http.put<UtilisateurResponse>('http://localhost:8080/api/profil/avatar', {avatar});
   }
 
   /** Retourne le token JWT depuis sessionStorage (ou null) */

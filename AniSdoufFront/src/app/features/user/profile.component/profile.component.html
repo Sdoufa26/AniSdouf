@@ -1,1 +1,76 @@
-<p>profile.component works!</p>
+<div class="dashboard-layout">
+  <app-navbar></app-navbar>
+
+  <main class="main-content">
+    @if (loading) {
+      <div class="loader">Chargement de ton profil...</div>
+    }
+
+    @if (profile) {
+      <div class="profile-container">
+
+        <div class="identity-column">
+          <div class="avatar-section">
+            <img [src]="profile.avatar" alt="Avatar" class="main-avatar">
+            <button class="btn-change-avatar" (click)="toggleAvatarSelector()">✏️ Changer</button>
+
+            @if (showAvatarSelector) {
+              <div class="avatar-selector">
+                <p>Choisis ton avatar :</p>
+                <div class="avatar-grid">
+                  @for (av of availableAvatars; track av) {
+                    <img [src]="av" class="avatar-option" (click)="selectAvatar(av)">
+                  }
+                </div>
+              </div>
+            }
+          </div>
+
+          <h1 class="pseudo">{{ profile.pseudo }}</h1>
+          <p class="email">{{ profile.mail }}</p>
+          <span class="badge">Membre d'AniSdouf</span>
+
+          <button class="btn-logout" (click)="logout()">Se déconnecter</button>
+        </div>
+
+        <div class="stats-column">
+          <h2>Ton Tableau de Bord</h2>
+
+          <div class="stats-cards">
+            <div class="stat-card">
+              <span class="stat-number">{{ profile.totalRegardes }}</span>
+              <span class="stat-label">Animés dans la liste</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">{{ profile.animesTermines }}</span>
+              <span class="stat-label">Animés Terminés</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">{{ profile.animesEnCours }}</span>
+              <span class="stat-label">Animés en cours</span>
+            </div>
+          </div>
+
+          <h2 class="mt-40">Ton Panthéon (Top 3) 🏆</h2>
+          @if (profile.topAnimes && profile.topAnimes.length > 0) {
+            <div class="top3-grid">
+              @for (anime of profile.topAnimes; track anime.idA; let i = $index) {
+                <div class="top3-card">
+                  <div class="rank-badge">#{{ i + 1 }}</div>
+                  <img [src]="anime.image" class="top3-image">
+                  <div class="top3-info">
+                    <h3>{{ anime.titreA }}</h3>
+                    <span class="top3-note">⭐ {{ anime.noteA }} / 10</span>
+                  </div>
+                </div>
+              }
+            </div>
+          } @else {
+            <p class="empty-top">Tu n'as pas encore noté d'animés !</p>
+          }
+        </div>
+
+      </div>
+    }
+  </main>
+</div>

@@ -83,7 +83,7 @@ export class AnimeService {
     return this.httpClient.get<NoteAnimeResponse[]>(this.API_NOTES)
   }
 
-  getAnimeById(idA: number): Observable<Anime>{
+  getAnimeById(idA: number): Observable<Anime> {
     return this.httpClient.get<Anime>(`${this.API_ANIMES}/${idA}`);
   }
 }
