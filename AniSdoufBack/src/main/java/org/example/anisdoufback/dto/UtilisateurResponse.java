@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -17,8 +18,10 @@ public class UtilisateurResponse implements Serializable {
     private UUID idU;
     private String pseudo;
     private String mail;
+    private String avatar;
     private Collection<NoteAnimeResponse> notesA;
     private Collection<NoteEpisodeResponse> notesE;
+    private List<NoteAnimeResponse> topAnimes;
     private long animesTermines;
     private long animesEnCours;
     private long totalRegardes;

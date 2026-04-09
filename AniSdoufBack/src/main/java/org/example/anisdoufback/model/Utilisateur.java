@@ -29,6 +29,10 @@ public class Utilisateur implements Serializable {
     @NotNull
     private String mdp;
 
+    @Builder.Default
+    @Column(name = "avatar")
+    private String avatar = "avatar1.png";
+
     @OneToMany(mappedBy = "utilisateur")
     private Collection<NoteAnime> notesA;
 

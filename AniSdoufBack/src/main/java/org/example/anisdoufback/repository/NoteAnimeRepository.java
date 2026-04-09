@@ -15,4 +15,6 @@ public interface NoteAnimeRepository extends JpaRepository<NoteAnime, Integer> {
     long countByUtilisateur_IdUAndStatutA(UUID idU, NoteAnime.StatutAnime statutA);
 
     List<NoteAnime> findByUtilisateur_IdU(UUID idU);
+
+    List<NoteAnime> findTop3ByUtilisateur_IdUAndNoteAIsNotNullOrderByNoteADesc(UUID idU);
 }
