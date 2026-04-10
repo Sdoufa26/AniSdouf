@@ -79,9 +79,11 @@ public class EpisodeService {
         Optional<NoteEpisode> noteOpt = noteEpisodeRepository.findByUtilisateur_IdUAndEpisode_IdE(utilisateur.getIdU(), episode.getIdE());
         Boolean estVu = false;
         Integer noteE = null;
+        Boolean estFavori = false;
         if(noteOpt.isPresent()) {
             estVu = noteOpt.get().getStatutE() == NoteEpisode.StatutEpisode.TERMINEE;
             noteE = noteOpt.get().getNoteE();
+            estFavori = noteOpt.get().getEstFavori() != null ? noteOpt.get().getEstFavori() : false;
         }
         return EpisodeResponse.builder()
                 .idE(episode.getIdE())
@@ -89,6 +91,7 @@ public class EpisodeService {
                 .numero(episode.getNumero())
                 .estVu(estVu)
                 .noteE(noteE)
+                .estFavori(estFavori)
                 .build();
     }
 }
