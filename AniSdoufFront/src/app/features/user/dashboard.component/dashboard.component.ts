@@ -14,6 +14,11 @@ export class DashboardComponent implements OnInit {
   profile: UtilisateurResponse | null = null;
   loading = true;
 
+  selectedGenre: string = 'Global';
+  topGenres: string[] = ['Global']; // Contiendra 'Global' + tes 4 meilleurs genres
+  dynamicTop3: NoteAnimeResponse[] = [];
+  fullList: NoteAnimeResponse[] = [];
+
   tierList: {
     GOAT: NoteAnimeResponse[];
     S: NoteAnimeResponse[];
@@ -41,6 +46,36 @@ export class DashboardComponent implements OnInit {
 
     this.animeService.getMaListe().subscribe({
       next: (animes) => {
+        this.fullList = animes;
+
+        // --- CALCUL DES GENRES PRÉFÉRÉS ---
+        const genreCounts: { [key: string]: number } = {};
+        const motsExclus = [
+          'Inconnu', 'Unknown', 'Award Winning', 'Kids', 'Gag Humor',
+          'School', // Présent partout
+          'Action', 'Comedy', 'Drama', 'Fantasy', 'Adventure' // Les "Big 5" qui écrasent tout
+        ];
+        animes.forEach(anime => {
+          if (anime.genre && anime.genre !== 'Inconnu') {
+            // On sépare les genres (ex: "Action, Drama") et on les compte
+            anime.genre.split(',').forEach(g => {
+              const genreClean = g.trim();
+              if (!motsExclus.includes(genreClean)) {
+                genreCounts[genreClean] = (genreCounts[genreClean] || 0) + 1;
+              }
+            });
+          }
+        });
+        // On prend les 4 genres les plus présents dans ta liste
+        const mostWatchedGenres = Object.keys(genreCounts)
+          .sort((a, b) => genreCounts[b] - genreCounts[a])
+          .slice(0, 4);
+
+        this.topGenres = ['Global', ...mostWatchedGenres];
+
+        // On initialise le Top 3 avec 'Global'
+        this.updateTop3('Global');
+
         animes.forEach(anime => {
           if (anime.noteA != null) {
             // Répartition selon les notes
@@ -62,5 +97,18 @@ export class DashboardComponent implements OnInit {
       },
       error: (err) => console.error("Erreur chargement liste", err)
     });
+  }
+
+  updateTop3(genre: string) {
+    this.selectedGenre = genre;
+    let animesNotes = this.fullList.filter(a => a.noteA != null);
+
+    if (genre !== 'Global') {
+      animesNotes = animesNotes.filter(a => a.genre && a.genre.includes(genre));
+    }
+
+    // Trie par note décroissante et prend les 3 premiers
+    this.dynamicTop3 = animesNotes.sort((a, b) => (b.noteA || 0) - (a.noteA || 0)).slice(0, 3);
+    this.cdr.detectChanges();
   }
 }

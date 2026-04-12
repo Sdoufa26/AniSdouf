@@ -110,3 +110,49 @@ h2 { color: #1E3A8A; margin-top: 0; margin-bottom: 24px; }
   box-shadow: 0 5px 15px rgba(0,0,0,0.8);
   z-index: 10;
 }
+
+.top3-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Titre à gauche, filtres à droite */
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.top3-header-row h2 {
+  margin: 0; /* Annule le margin-bottom pour l'alignement */
+}
+
+.genre-filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.badge-filter {
+  padding: 8px 20px;
+  border-radius: 30px;
+  border: none;
+  background: #f1f5f9;
+  color: #64748b;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Effet au survol : on éclaircit légèrement et on lève le bouton */
+.badge-filter:hover {
+  background: #e2e8f0;
+  color: #1E3A8A;
+  transform: translateY(-2px);
+}
+
+/* Effet Actif (Sélectionné) : La couleur principale avec une jolie ombre subtile */
+.badge-filter.active {
+  background: #1E3A8A;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.3), 0 4px 6px -2px rgba(30, 58, 138, 0.15);
+}

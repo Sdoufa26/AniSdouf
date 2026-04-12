@@ -29,6 +29,7 @@ export interface NoteAnimeResponse {
   statutA: 'A_VOIR' | 'EN_COURS' | 'TERMINEE';
   estFavori: boolean;
   episodesVus: number;
+  genre: string;
 }
 
 export interface EpisodeResponse {

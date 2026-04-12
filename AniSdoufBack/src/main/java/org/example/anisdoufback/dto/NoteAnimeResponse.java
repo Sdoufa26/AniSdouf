@@ -31,4 +31,5 @@ public class NoteAnimeResponse implements Serializable {
     private String titreA;
     private String image;
     private Integer nbEpisodes;
+    private String genre;
 }

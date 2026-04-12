@@ -25,12 +25,24 @@
           </div>
         </div>
 
-        <h2 class="mt-40">Ton Top 3</h2>
-        @if (profile.topAnimes && profile.topAnimes.length > 0) {
+        <div class="top3-header-row mt-40">
+          <h2>Ton Top 3</h2>
+          <div class="genre-filters">
+            @for (genre of topGenres; track genre) {
+              <button class="badge-filter"
+                      [class.active]="genre === selectedGenre"
+                      (click)="updateTop3(genre)">
+                {{ genre }}
+              </button>
+            }
+          </div>
+        </div>
+
+        @if (dynamicTop3 && dynamicTop3.length > 0) {
           <div class="top3-grid">
-            @for (anime of profile.topAnimes; track anime.idA; let i = $index) {
+            @for (anime of dynamicTop3; track anime.idA; let i = $index) {
               <div class="top3-card">
-                <div class="rank-badge">#{{ i + 1 }}</div>
+                <div class="rank-badge rank-{{ i + 1 }}">#{{ i + 1 }}</div>
                 <img [src]="anime.image" class="top3-image">
                 <div class="top3-info">
                   <h3>{{ anime.titreA }}</h3>
@@ -40,7 +52,7 @@
             }
           </div>
         } @else {
-          <p class="empty-top">Tu n'as pas encore noté d'animés !</p>
+          <p class="empty-top">Tu n'as pas encore d'animés notés dans la catégorie "{{ selectedGenre }}" !</p>
         }
 
         <h2 class="mt-40">Ma Tier List</h2>

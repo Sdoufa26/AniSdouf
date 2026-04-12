@@ -91,6 +91,7 @@ public class NoteAnimeService {
                 .titreA(noteAnime.getAnime().getTitreA())
                 .image(noteAnime.getAnime().getImage())
                 .nbEpisodes(noteAnime.getAnime().getNbEpisodes())
+                .genre(noteAnime.getAnime().getGenre())
                 .build();
     }
 
