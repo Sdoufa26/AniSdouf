@@ -1,6 +1,6 @@
 package org.example.anisdoufback.service;
 
-import lombok.RequiredArgsConstructor;
+// --- Imports Projet ---
 import org.example.anisdoufback.dto.EpisodeResponse;
 import org.example.anisdoufback.model.Anime;
 import org.example.anisdoufback.model.Episode;
@@ -9,13 +9,26 @@ import org.example.anisdoufback.model.Utilisateur;
 import org.example.anisdoufback.repository.EpisodeRepository;
 import org.example.anisdoufback.repository.NoteEpisodeRepository;
 import org.example.anisdoufback.repository.UtilisateurRepository;
+
+// --- Imports Spring ---
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import tools.jackson.databind.JsonNode;
 
+// --- Imports Java ---
 import java.util.List;
 import java.util.Optional;
 
+// --- Imports Lombok ---
+import lombok.RequiredArgsConstructor;
+
+// --- Imports Jackson (JSON)
+import tools.jackson.databind.JsonNode;
+
+/**
+ * Service responsable de la gestion des épisodes.
+ * Interagit avec l'API Jikan pour hydrater la base de données si nécessaire,
+ * et croise les données des épisodes avec les interactions de l'utilisateur (vu, note, favori).
+ */
 @Service
 @RequiredArgsConstructor
 public class EpisodeService {
@@ -24,6 +37,12 @@ public class EpisodeService {
     private final UtilisateurRepository utilisateurRepository;
     private final NoteEpisodeRepository noteEpisodeRepository;
 
+    /**
+     * Charge l'intégralité des épisodes d'un animé depuis l'API externe Jikan et les sauvegarde.
+     * Cette méthode est appelée automatiquement si l'animé ne possède pas encore ses épisodes en local.
+     *
+     * @param idA L'identifiant de l'animé.
+     */
     private void chargerEpisodesDepuisJikan(Integer idA) {
         Anime animeParent = animeService.getAnime(idA);
         String url = "https://api.jikan.moe/v4/anime/" + idA + "/episodes";
@@ -45,6 +64,13 @@ public class EpisodeService {
         }
     }
 
+    /**
+     * Récupère la liste de tous les épisodes d'un animé avec l'état personnel de l'utilisateur.
+     *
+     * @param idA L'identifiant de l'animé.
+     * @param mail L'email de l'utilisateur effectuant la requête.
+     * @return La liste des épisodes formatés en DTO.
+     */
     public List<EpisodeResponse> getTousLesEpisodes(Integer idA, String mail) {
         Utilisateur utilisateur = utilisateurRepository.findByMail(mail)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
@@ -58,6 +84,13 @@ public class EpisodeService {
         return listeEpisodes.stream().map(ep -> toUserResponse(ep, utilisateur)).toList();
     }
 
+    /**
+     * Méthode interne pour récupérer une entité Episode en s'assurant qu'elle existe.
+     *
+     * @param idA L'identifiant de l'animé.
+     * @param idE L'identifiant de l'épisode.
+     * @return L'entité de l'épisode cherché.
+     */
     public Episode getEpisodeEntity(Integer idA, Integer idE) {
         Optional<Episode> episodeOptional = episodeRepository.findById(idE);
         if (episodeOptional.isPresent()) {
@@ -68,6 +101,14 @@ public class EpisodeService {
                 .orElseThrow(() -> new RuntimeException("L'épisode " + idE + " est introuvable"));
     }
 
+    /**
+     * Récupère un épisode spécifique formaté pour l'utilisateur.
+     *
+     * @param idA L'identifiant de l'animé.
+     * @param idE L'identifiant de l'épisode.
+     * @param mail L'émail de l'utilisateur
+     * @return L'épisode recherché
+     */
     public EpisodeResponse getEpisode(Integer idA, Integer idE, String mail) {
         Utilisateur utilisateur = utilisateurRepository.findByMail(mail)
                 .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
@@ -75,6 +116,13 @@ public class EpisodeService {
         return toUserResponse(episodeTrouve, utilisateur);
     }
 
+    /**
+     * Assemble les données de l'épisode avec les interactions personnelles de l'utilisateur.
+     *
+     * @param episode L'entité de l'épisode.
+     * @param utilisateur L'entité de l'utilisateur.
+     * @return Le DTO EpisodeResponse formaté.
+     */
     private EpisodeResponse toUserResponse(Episode episode, Utilisateur utilisateur) {
         Optional<NoteEpisode> noteOpt = noteEpisodeRepository.findByUtilisateur_IdUAndEpisode_IdE(utilisateur.getIdU(), episode.getIdE());
         Boolean estVu = false;

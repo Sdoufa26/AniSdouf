@@ -1,6 +1,6 @@
 package org.example.anisdoufback.service;
 
-import lombok.RequiredArgsConstructor;
+// --- Imports Projet ---
 import org.example.anisdoufback.dto.NoteAnimeRequest;
 import org.example.anisdoufback.dto.NoteAnimeResponse;
 import org.example.anisdoufback.model.Anime;
@@ -9,12 +9,20 @@ import org.example.anisdoufback.model.Utilisateur;
 import org.example.anisdoufback.repository.AnimeRepository;
 import org.example.anisdoufback.repository.NoteAnimeRepository;
 import org.example.anisdoufback.repository.UtilisateurRepository;
+
+// --- Imports Spring ---
 import org.springframework.stereotype.Service;
 
+// --- Imports Java ---
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
+// --- Imports Lombok ---
+import lombok.RequiredArgsConstructor;
+
+/**
+ * Service gérant la collection "Ma Liste" de l'utilisateur.
+ * Centralise les actions d'ajout, de mise à jour des notes globales et de suivi des statuts.
+ */
 @Service
 @RequiredArgsConstructor
 public class NoteAnimeService {
@@ -23,6 +31,14 @@ public class NoteAnimeService {
     private final AnimeRepository animeRepository;
     private final AnimeService animeService;
 
+    /**
+     * Ajoute ou met à jour la ligne de suivi (NoteAnime) d'un utilisateur pour un animé.
+     * Cette méthode gère intelligemment la création (INSERT) ou la modification (UPDATE).
+     *
+     * @param noteAnimeRequest Les nouvelles données de suivi.
+     * @param mail L'email de l'utilisateur connecté.
+     * @return La note formatée après sauvegarde.
+     */
     public NoteAnimeResponse ajouterOuModifierNote(NoteAnimeRequest noteAnimeRequest, String mail){
         Utilisateur utilisateur = utilisateurRepository.findByMail(mail)
                 .orElseThrow(()-> new RuntimeException("Utilisateur introuvable"));
@@ -43,6 +59,12 @@ public class NoteAnimeService {
         return toUserResponse(noteAnime);
     }
 
+    /**
+     * Récupère la totalité des animés ajoutés à "Ma Liste" par l'utilisateur.
+     *
+     * @param mail L'email de l'utilisateur.
+     * @return La liste complète formatée pour le Frontend.
+     */
     public List<NoteAnimeResponse> getMaListe(String mail){
         Utilisateur utilisateur = utilisateurRepository.findByMail(mail)
                 .orElseThrow(()-> new RuntimeException("Utilisateur introuvable"));
@@ -52,6 +74,12 @@ public class NoteAnimeService {
                 .toList();
     }
 
+    /**
+     * Transforme l'entité NoteAnime en DTO en y aplatissant les informations de l'animé (Titre, Image).
+     *
+     * @param noteAnime L'entité de noteAnime.
+     * @return Le DTO NoteAnimeResponse formaté.
+     */
     private NoteAnimeResponse toUserResponse(NoteAnime noteAnime){
         return NoteAnimeResponse.builder()
                 .idNa(noteAnime.getIdNa())
