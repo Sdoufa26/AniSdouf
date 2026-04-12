@@ -1,10 +1,18 @@
 package org.example.anisdoufback.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+// --- Imports Lombok ---
 import lombok.Data;
 
+// --- Imports Java ---
 import java.util.List;
 
+// --- Imports Jackson (JSON) ---
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+/**
+ * Objet de Transfert de Données (DTO) utilisé pour mapper la réponse de l'API externe Jikan.
+ * Contient les informations brutes d'un animé fournies par MyAnimeList.
+ */
 @Data
 public class JikanAnimeData {
     @JsonProperty("mal_id")

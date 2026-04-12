@@ -1,13 +1,20 @@
 package org.example.anisdoufback.dto;
 
+// --- Imports Lombok ---
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// --- Imports Java ---
 import java.io.Serializable;
 import java.util.Collection;
 
+/**
+ * Objet de Transfert de Données (DTO) représentant un Épisode.
+ * Fusionne les données globales de l'épisode avec les données personnelles
+ * de l'utilisateur connecté (vu, note, favori).
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

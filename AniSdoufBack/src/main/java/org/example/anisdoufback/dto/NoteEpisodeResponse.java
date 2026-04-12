@@ -1,14 +1,22 @@
 package org.example.anisdoufback.dto;
 
+// --- Imports Lombok ---
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.anisdoufback.model.NoteEpisode;
 
+// --- Imports Java ---
 import java.io.Serializable;
 import java.util.UUID;
 
+// --- Imports Projet ---
+import org.example.anisdoufback.model.NoteEpisode;
+
+/**
+ * Objet de Transfert de Données (DTO) confirmant l'enregistrement
+ * de la note d'un épisode au frontend.
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
