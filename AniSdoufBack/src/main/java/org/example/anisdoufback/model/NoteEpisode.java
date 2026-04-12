@@ -22,7 +22,7 @@ public class NoteEpisode implements Serializable {
 
     @Min(0)
     @Max(10)
-    private Integer noteE;
+    private Double noteE;
 
     private Boolean estFavori;
 

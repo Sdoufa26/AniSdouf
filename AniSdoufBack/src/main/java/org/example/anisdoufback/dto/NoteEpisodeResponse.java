@@ -15,7 +15,7 @@ import java.util.UUID;
 @Builder
 public class NoteEpisodeResponse implements Serializable {
     private Integer idNe;
-    private Integer noteE;
+    private Double noteE;
     private Boolean estFavori;
     private NoteEpisode.StatutEpisode statutE;
     private UUID idU;

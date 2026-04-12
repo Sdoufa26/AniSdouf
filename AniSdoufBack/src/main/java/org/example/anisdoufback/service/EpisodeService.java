@@ -78,7 +78,7 @@ public class EpisodeService {
     private EpisodeResponse toUserResponse(Episode episode, Utilisateur utilisateur) {
         Optional<NoteEpisode> noteOpt = noteEpisodeRepository.findByUtilisateur_IdUAndEpisode_IdE(utilisateur.getIdU(), episode.getIdE());
         Boolean estVu = false;
-        Integer noteE = null;
+        Double noteE = null;
         Boolean estFavori = false;
         if(noteOpt.isPresent()) {
             estVu = noteOpt.get().getStatutE() == NoteEpisode.StatutEpisode.TERMINEE;

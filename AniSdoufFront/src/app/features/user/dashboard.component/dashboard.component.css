@@ -3,7 +3,7 @@
 
 /* --- DROITE : STATS & TOP 3 --- */
 .stats-column { flex-grow: 1; }
-h2 { color: #111827; margin-top: 0; margin-bottom: 24px; }
+h2 { color: #1E3A8A; margin-top: 0; margin-bottom: 24px; }
 .mt-40 { margin-top: 40px; }
 
 .stats-cards { display: flex; gap: 24px; }
@@ -29,3 +29,84 @@ h2 { color: #111827; margin-top: 0; margin-bottom: 24px; }
 .top3-info h3 { margin: 0 0 8px 0; font-size: 16px; color: #111827; }
 .top3-note { font-weight: bold; color: #d97706; }
 .empty-top { color: #6b7280; font-style: italic; }
+
+.tierlist-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; /* Le petit espace noir entre chaque ligne typique des tier lists */
+  background-color: #1a1a1a; /* Fond sombre pour faire ressortir les images */
+  padding: 8px;
+  border-radius: 12px;
+  margin-top: 16px;
+}
+
+.tier-row {
+  display: flex;
+  min-height: 85px;
+  background-color: #2b2b2b;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.tier-label {
+  width: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #111;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
+  flex-shrink: 0;
+}
+
+.tier-letter {
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.tier-desc {
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+/* 🔴 Nouveau design Premium pour le GOAT */
+.tier-goat {
+  background: linear-gradient(135deg, #FFD700, #FFA500); /* Dégradé Doré */
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+/* Couleurs Tiermaker classiques */
+.tier-s { background-color: #ff7f7f; } /* Rouge */
+.tier-a { background-color: #ffbf7f; } /* Orange */
+.tier-b { background-color: #ffff7f; } /* Jaune */
+.tier-c { background-color: #7fff7f; } /* Vert */
+.tier-d { background-color: #7fbfff; } /* Bleu */
+
+.tier-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px;
+  flex-grow: 1;
+  align-items: center;
+}
+
+.tier-img {
+  width: 55px;
+  height: 75px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.tier-img:hover {
+  transform: scale(1.15) translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+  z-index: 10;
+}

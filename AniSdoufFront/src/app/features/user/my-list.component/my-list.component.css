@@ -11,10 +11,11 @@
   box-sizing: border-box;
 }
 
-.dashboard-header .subtitle {
-  color: #666;
-  font-size: 16px;
-  margin-bottom: 32px;
+.dashboard-header h2 {
+  color: #1E3A8A;
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 28px;
 }
 
 .content-area {

@@ -22,7 +22,7 @@ public class NoteAnime implements Serializable {
 
     @Min(0)
     @Max(10)
-    private Integer noteA;
+    private Double noteA;
 
     @Enumerated(EnumType.STRING)
     private StatutAnime statutA;

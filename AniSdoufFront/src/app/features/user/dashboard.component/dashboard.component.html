@@ -42,6 +42,83 @@
         } @else {
           <p class="empty-top">Tu n'as pas encore noté d'animés !</p>
         }
+
+        <h2 class="mt-40">Ma Tier List</h2>
+
+        <div class="tierlist-container">
+          <div class="tier-row">
+            <div class="tier-label tier-goat">
+              <span class="tier-letter">GOAT</span>
+              <span class="tier-desc">9 à 10 ⭐</span>
+            </div>
+            <div class="tier-content">
+              @for (anime of tierList.GOAT; track anime.idA) {
+                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
+              }
+            </div>
+          </div>
+
+          <div class="tier-row">
+            <div class="tier-label tier-s">
+              <span class="tier-letter">S</span>
+              <span class="tier-desc">8 à 8.9 ⭐</span>
+            </div>
+            <div class="tier-content">
+              @for (anime of tierList.S; track anime.idA) {
+                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
+              }
+            </div>
+          </div>
+
+          <div class="tier-row">
+            <div class="tier-label tier-a">
+              <span class="tier-letter">A</span>
+              <span class="tier-desc">6 à 7.9 ⭐</span>
+            </div>
+            <div class="tier-content">
+              @for (anime of tierList.A; track anime.idA) {
+                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
+              }
+            </div>
+          </div>
+
+          <div class="tier-row">
+            <div class="tier-label tier-b">
+              <span class="tier-letter">B</span>
+              <span class="tier-desc">4 à 5.9 ⭐</span>
+            </div>
+            <div class="tier-content">
+              @for (anime of tierList.B; track anime.idA) {
+                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
+              }
+            </div>
+          </div>
+
+          <div class="tier-row">
+            <div class="tier-label tier-c">
+              <span class="tier-letter">C</span>
+              <span class="tier-desc">2 à 3.9 ⭐</span>
+            </div>
+            <div class="tier-content">
+              @for (anime of tierList.C; track anime.idA) {
+                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
+              }
+            </div>
+          </div>
+
+          <div class="tier-row">
+            <div class="tier-label tier-d">
+              <span class="tier-letter">D</span>
+              <span class="tier-desc">< 2 ⭐</span>
+            </div>
+            <div class="tier-content">
+              @for (anime of tierList.D; track anime.idA) {
+                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
+              }
+            </div>
+          </div>
+        </div>
+
       </div>
     }
   </main>

@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class NoteAnimeRequest implements Serializable {
-    private Integer noteA;
+    private Double noteA;
     private NoteAnime.StatutAnime statutA;
     private Boolean estFavori;
     private Integer episodesVus;
