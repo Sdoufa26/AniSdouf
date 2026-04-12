@@ -1,15 +1,25 @@
 package org.example.anisdoufback.model;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+
+// --- Imports Lombok ---
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.validation.constraints.NotNull;
+
+// --- Imports Java ---
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.UUID;
 
+// --- Imports Jakarta ---
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+/**
+ * Entité représentant la table "Utilisateur" en base de données.
+ * Gère l'identité, les informations de connexion (chiffrées) et les liens vers les notes.
+ */
 @Entity
 @Data
 @NoArgsConstructor

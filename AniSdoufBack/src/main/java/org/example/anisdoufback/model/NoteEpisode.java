@@ -1,15 +1,23 @@
 package org.example.anisdoufback.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+// --- Imports Lombok ---
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// --- Imports Java ---
 import java.io.Serializable;
 
+// --- Imports Jakarta ---
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+
+/**
+ * Entité d'association représentant le suivi granulaire d'un Épisode par un Utilisateur.
+ * Permet de savoir si un épisode précis a été vu, liké ou noté.
+ */
 @Entity
 @Data
 @NoArgsConstructor

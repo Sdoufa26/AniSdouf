@@ -1,15 +1,23 @@
 package org.example.anisdoufback.model;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+// --- Imports Lombok ---
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// --- Imports Java ---
 import java.io.Serializable;
 
+// --- Imports Jakarta ---
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+
+/**
+ * Entité d'association représentant la note et le statut d'un Animé pour un Utilisateur spécifique.
+ * Correspond à l'entrée d'un animé dans "Ma Liste".
+ */
 @Entity
 @Data
 @NoArgsConstructor
