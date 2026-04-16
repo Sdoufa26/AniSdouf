@@ -53,9 +53,9 @@ export interface NoteEpisodeRequest {
   providedIn: 'root',
 })
 export class AnimeService {
-  private readonly API_ANIMES = 'http://localhost:8080/api/animes';
-  private readonly API_NOTES = 'http://localhost:8080/api/notes-anime';
-  private readonly API_NOTES_EPISODE = 'http://localhost:8080/api/notes-episode';
+  private readonly API_ANIMES = 'https://anisdouf.onrender.com/api/animes';
+  private readonly API_NOTES = 'https://anisdouf.onrender.com/api/notes-anime';
+  private readonly API_NOTES_EPISODE = 'https://anisdouf.onrender.com/api/notes-episode';
 
   constructor(private httpClient : HttpClient) {}
 

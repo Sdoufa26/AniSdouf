@@ -36,7 +36,7 @@ export interface UtilisateurResponse {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  private readonly API = 'http://localhost:8080/api/auth';
+  private readonly API = 'https://anisdouf.onrender.com/api/auth';
   private readonly TOKEN_KEY = 'token-anisdouf';
 
   // Le token est lu depuis sessionStorage au démarrage du service
@@ -60,7 +60,7 @@ export class AuthService {
 
   /** Récupère le profil de l'utilisateur connecté et le met en cache */
   getProfile(): Observable<UtilisateurResponse> {
-    return this.http.get<UtilisateurResponse>(`http://localhost:8080/api/profil`).pipe(
+    return this.http.get<UtilisateurResponse>(`https://anisdouf.onrender.com/api/profil`).pipe(
       tap(user => {
         this.cachedUser = user;
       })
@@ -68,7 +68,7 @@ export class AuthService {
   }
 
   updateAvatar(avatar: string): Observable<UtilisateurResponse> {
-    return this.http.put<UtilisateurResponse>('http://localhost:8080/api/profil/avatar', {avatar});
+    return this.http.put<UtilisateurResponse>('https://anisdouf.onrender.com/api/profil/avatar', {avatar});
   }
 
   /** Retourne le token JWT depuis sessionStorage (ou null) */
