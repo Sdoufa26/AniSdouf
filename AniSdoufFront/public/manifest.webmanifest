@@ -1,0 +1,21 @@
+{
+  "name": "AniSdouf",
+  "short_name": "AniSdouf",
+  "theme_color": "#1E3A8A",
+  "background_color": "#1E3A8A",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "logoAniSdouf.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logoAniSdouf.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
