@@ -168,3 +168,26 @@ input:disabled { opacity: 0.6; cursor: not-allowed; }
   transform: scale(1.05) rotate(5deg);
   box-shadow: 0 12px 25px rgba(0, 0, 0, 0.4);
 }
+
+@media (max-width: 768px) {
+  .floating-logo {
+    position: static;
+    width: 90px;
+    height: 90px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .card {
+    width: 90%;
+    padding: 30px 20px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+  }
+}
