@@ -156,3 +156,19 @@ h2 { color: #1E3A8A; margin-top: 0; margin-bottom: 24px; }
   transform: scale(1.05);
   box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.3), 0 4px 6px -2px rgba(30, 58, 138, 0.15);
 }
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0; /* Enlève l'espace du menu latéral */
+    padding: 20px;  /* Réduit un peu l'espace sur les bords */
+  }
+
+  .stats-cards, .top3-grid {
+    flex-direction: column; /* Empile les cartes les unes sous les autres au lieu de côte à côte */
+  }
+
+  .top3-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

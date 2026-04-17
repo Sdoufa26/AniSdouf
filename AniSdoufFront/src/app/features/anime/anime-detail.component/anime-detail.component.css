@@ -77,3 +77,32 @@
   color: #4b5563;
   text-align: justify;
 }
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+    padding-bottom: 100px;
+  }
+
+  .detail-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .detail-poster {
+    width: 100%;
+    max-width: 250px;
+  }
+
+  .detail-title {
+    font-size: 26px;
+    text-align: center;
+  }
+
+  .detail-badges {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

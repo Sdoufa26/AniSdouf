@@ -515,3 +515,27 @@
   font-weight: bold;
   color: #6b7280;
 }
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .toolbar {
+    flex-direction: column; /* Les filtres passent les uns sous les autres */
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  /* On compresse un peu le tableau de la modale pour qu'il rentre sur l'écran */
+  .modal-table-grid {
+    grid-template-columns: 30px 40px 1fr 60px;
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .ep-col-title {
+    font-size: 11px;
+  }
+}

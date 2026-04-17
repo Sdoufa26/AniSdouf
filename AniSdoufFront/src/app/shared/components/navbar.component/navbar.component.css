@@ -123,3 +123,41 @@
   color: white;
   box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
 }
+
+@media (max-width: 768px) {
+  .navbar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    top: auto;
+    bottom: 0;
+    padding: 10px;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+  }
+
+  .navbar-brand {
+    display: none;
+  }
+
+  .navbar-menu {
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .navbar-menu a {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .navbar-auth {
+    flex-direction: row;
+  }
+
+  .btn-logout {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+}

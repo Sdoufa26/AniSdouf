@@ -171,3 +171,27 @@
   border-color: #1E3A8A;
   transform: scale(1.1);
 }
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+  }
+
+  .page-header {
+    padding: 20px;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  .profile-header-card {
+    flex-direction: column; /* L'avatar passe au-dessus du texte */
+    text-align: center;
+    padding: 24px;
+  }
+
+  .sections-grid {
+    grid-template-columns: 1fr; /* Une seule colonne de cartes */
+  }
+}

@@ -158,3 +158,19 @@
 .btn-details:hover {
   background-color: #eff6ff;
 }
+
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
+    padding-bottom: 100px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search-bar button {
+    padding: 14px;
+  }
+}
