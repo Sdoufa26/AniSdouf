@@ -16,50 +16,37 @@
             <span class="stat-number">{{ profile.totalRegardes }}</span>
           </div>
           <div class="stat-card">
-            <div class="stat-card-header"><span>Note Moyenne</span> <span>⭐</span></div>
-            <span class="stat-number">{{ averageNote }}</span>
-          </div>
-          <div class="stat-card">
-            <div class="stat-card-header"><span>Taux d'achèvement</span> <span>✅</span></div>
-            <span class="stat-number">{{ completionRate }}%</span>
-          </div>
-          <div class="stat-card">
             <div class="stat-card-header"><span>En Cours</span> <span>⏳</span></div>
             <span class="stat-number">{{ profile.animesEnCours }}</span>
           </div>
+          @if (genreStats.length > 0) {
+            <div class="stat-card">
+              <div class="stat-card-header"><span>Genre Favori</span> <span>🥇</span></div>
+              <span class="stat-number">{{ genreStats[0].count }} <span class="genre-label">{{ genreStats[0].genre }}</span></span>
+            </div>
+          }
+          @if (genreStats.length > 1) {
+            <div class="stat-card">
+              <div class="stat-card-header"><span>2ème Genre</span> <span>🥈</span></div>
+              <span class="stat-number">{{ genreStats[1].count }} <span class="genre-label">{{ genreStats[1].genre }}</span></span>
+            </div>
+          }
         </div>
 
-        <div class="top3-header-row mt-40">
-          <h2>Analyse du Top 3</h2>
-          <div class="genre-filters">
-            @for (genre of topGenres; track genre) {
-              <button class="badge-filter"
-                      [class.active]="genre === selectedGenre"
-                      (click)="updateTop3(genre)">
-                {{ genre }}
-              </button>
+        <h2 class="mt-40">Répartition par Genre</h2>
+        <div class="chart-container">
+          <div class="bar-chart">
+            @for (stat of genreStats.slice(0, 8); track stat.genre) {
+              <div class="bar-group">
+                <span class="bar-tooltip">{{ stat.count }}</span>
+                <div class="bar" [style.height.%]="(stat.count / genreStats[0].count) * 100"></div>
+                <div class="bar-label" [title]="stat.genre">{{ stat.genre }}</div>
+              </div>
             }
           </div>
         </div>
 
-        @if (dynamicTop3 && dynamicTop3.length > 0) {
-          <div class="top3-widget">
-            <div class="top3-list">
-              @for (anime of dynamicTop3; track anime.idA; let i = $index) {
-                <div class="top3-item">
-                  <div class="top3-rank">#{{ i + 1 }}</div>
-                  <img [src]="anime.image" class="top3-img-small">
-                  <div class="top3-details">
-                    <h3>{{ anime.titreA }}</h3>
-                    <span>⭐ {{ anime.noteA }}</span>
-                  </div>
-                </div>
-              }
-            </div>
-          </div>
-        } @else {
-          <p class="empty-top">Données insuffisantes pour la catégorie "{{ selectedGenre }}".</p>
-        }
+
 
         <h2 class="mt-40">Classement Détaillé (Data Table)</h2>
 
@@ -70,7 +57,16 @@
               <th>Rang</th>
               <th>Aperçu</th>
               <th>Titre de l'œuvre</th>
-              <th>Genre Principal</th>
+              <th>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  Genre Principal
+                  <select (change)="onFilterChange($event)" class="table-select">
+                    @for (g of availableGenres; track g) {
+                      <option [value]="g">{{ g }}</option>
+                    }
+                  </select>
+                </div>
+              </th>
               <th>Épisodes</th>
               <th>Statut</th>
               <th>Note</th>
