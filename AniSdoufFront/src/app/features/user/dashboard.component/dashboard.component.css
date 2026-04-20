@@ -11,16 +11,20 @@ h2 { color: #1E3A8A; margin-top: 0; margin-bottom: 24px; font-size: 22px; border
   gap: 24px;
 }
 .stat-card {
-  background: #f1f5f9; padding: 24px; border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  background: #334155; /* Gris ardoise foncé pour un beau contraste */
+  padding: 24px; border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08); /* Ombre légèrement plus prononcée */
   display: flex; flex-direction: column; justify-content: space-between;
 }
 .stat-card-header {
   display: flex; justify-content: space-between;
-  color: #6b7280; font-size: 14px; margin-bottom: 12px; font-weight: bold;
+  color: #f8fafc; /* Blanc légèrement grisé pour les titres */
+  font-size: 14px; margin-bottom: 12px; font-weight: bold;
 }
-.stat-number { font-size: 32px; font-weight: 500; color: #111827; }
-
+.stat-number {
+  font-size: 32px; font-weight: 500;
+  color: #ffffff; /* Blanc pur pour faire ressortir les chiffres */
+}
 /* --- DATA TABLE (Remplacement de la Tier List) --- */
 .table-container {
   background: white;
