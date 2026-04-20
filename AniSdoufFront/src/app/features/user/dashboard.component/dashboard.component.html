@@ -3,30 +3,34 @@
 
   <main class="main-content">
     @if (loading) {
-      <div class="loader">Chargement de tes statistiques...</div>
+      <div class="loader">Chargement de l'analytique...</div>
     }
 
     @if (profile) {
       <div class="stats-container">
-        <h2>Ton Tableau de Bord</h2>
+        <h2>Performance & Vue d'ensemble</h2>
 
         <div class="stats-cards">
           <div class="stat-card">
+            <div class="stat-card-header"><span>Total Regardés</span> <span>📺</span></div>
             <span class="stat-number">{{ profile.totalRegardes }}</span>
-            <span class="stat-label">Animés dans la liste</span>
           </div>
           <div class="stat-card">
-            <span class="stat-number">{{ profile.animesTermines }}</span>
-            <span class="stat-label">Animés Terminés</span>
+            <div class="stat-card-header"><span>Note Moyenne</span> <span>⭐</span></div>
+            <span class="stat-number">{{ averageNote }}</span>
           </div>
           <div class="stat-card">
+            <div class="stat-card-header"><span>Taux d'achèvement</span> <span>✅</span></div>
+            <span class="stat-number">{{ completionRate }}%</span>
+          </div>
+          <div class="stat-card">
+            <div class="stat-card-header"><span>En Cours</span> <span>⏳</span></div>
             <span class="stat-number">{{ profile.animesEnCours }}</span>
-            <span class="stat-label">Animés en cours</span>
           </div>
         </div>
 
         <div class="top3-header-row mt-40">
-          <h2>Ton Top 3</h2>
+          <h2>Analyse du Top 3</h2>
           <div class="genre-filters">
             @for (genre of topGenres; track genre) {
               <button class="badge-filter"
@@ -39,96 +43,60 @@
         </div>
 
         @if (dynamicTop3 && dynamicTop3.length > 0) {
-          <div class="top3-grid">
-            @for (anime of dynamicTop3; track anime.idA; let i = $index) {
-              <div class="top3-card">
-                <div class="rank-badge rank-{{ i + 1 }}">#{{ i + 1 }}</div>
-                <img [src]="anime.image" class="top3-image">
-                <div class="top3-info">
-                  <h3>{{ anime.titreA }}</h3>
-                  <span class="top3-note">⭐ {{ anime.noteA }} / 10</span>
+          <div class="top3-widget">
+            <div class="top3-list">
+              @for (anime of dynamicTop3; track anime.idA; let i = $index) {
+                <div class="top3-item">
+                  <div class="top3-rank">#{{ i + 1 }}</div>
+                  <img [src]="anime.image" class="top3-img-small">
+                  <div class="top3-details">
+                    <h3>{{ anime.titreA }}</h3>
+                    <span>⭐ {{ anime.noteA }}</span>
+                  </div>
                 </div>
-              </div>
-            }
+              }
+            </div>
           </div>
         } @else {
-          <p class="empty-top">Tu n'as pas encore d'animés notés dans la catégorie "{{ selectedGenre }}" !</p>
+          <p class="empty-top">Données insuffisantes pour la catégorie "{{ selectedGenre }}".</p>
         }
 
-        <h2 class="mt-40">Ma Tier List</h2>
+        <h2 class="mt-40">Classement Détaillé (Data Table)</h2>
 
-        <div class="tierlist-container">
-          <div class="tier-row">
-            <div class="tier-label tier-goat">
-              <span class="tier-letter">GOAT</span>
-              <span class="tier-desc">9 à 10 ⭐</span>
-            </div>
-            <div class="tier-content">
-              @for (anime of tierList.GOAT; track anime.idA) {
-                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
+        <div class="table-container">
+          <table class="dashboard-table">
+            <thead>
+            <tr>
+              <th>Rang</th>
+              <th>Aperçu</th>
+              <th>Titre de l'œuvre</th>
+              <th>Genre Principal</th>
+              <th>Épisodes</th>
+              <th>Statut</th>
+              <th>Note</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (anime of paginatedAnimes; track anime.idA; let i = $index) {
+                <tr>
+                  <td class="table-rank">#{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                  <td><img [src]="anime.image" class="table-img" alt="poster"></td>
+                  <td class="table-title">{{ anime.titreA }}</td>
+                  <td><span class="table-genre">{{ getPrimaryGenre(anime.genre) }}</span></td>
+                  <td>{{ anime.nbEpisodes || '?' }} ep.</td>
+                  <td>{{ anime.statutA }}</td>
+                  <td class="table-note">⭐ {{ anime.noteA | number:'1.1-1' }}</td>
+                </tr>
               }
-            </div>
-          </div>
-
-          <div class="tier-row">
-            <div class="tier-label tier-s">
-              <span class="tier-letter">S</span>
-              <span class="tier-desc">8 à 8.9 ⭐</span>
-            </div>
-            <div class="tier-content">
-              @for (anime of tierList.S; track anime.idA) {
-                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
+              @if (totalPages > 1) {
+                <div class="pagination-controls">
+                  <button class="page-btn" [disabled]="currentPage === 1" (click)="changePage(-1)">Précédent</button>
+                  <span class="page-info">Page {{ currentPage }} sur {{ totalPages }}</span>
+                  <button class="page-btn" [disabled]="currentPage === totalPages" (click)="changePage(1)">Suivant</button>
+                </div>
               }
-            </div>
-          </div>
-
-          <div class="tier-row">
-            <div class="tier-label tier-a">
-              <span class="tier-letter">A</span>
-              <span class="tier-desc">6 à 7.9 ⭐</span>
-            </div>
-            <div class="tier-content">
-              @for (anime of tierList.A; track anime.idA) {
-                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
-              }
-            </div>
-          </div>
-
-          <div class="tier-row">
-            <div class="tier-label tier-b">
-              <span class="tier-letter">B</span>
-              <span class="tier-desc">4 à 5.9 ⭐</span>
-            </div>
-            <div class="tier-content">
-              @for (anime of tierList.B; track anime.idA) {
-                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
-              }
-            </div>
-          </div>
-
-          <div class="tier-row">
-            <div class="tier-label tier-c">
-              <span class="tier-letter">C</span>
-              <span class="tier-desc">2 à 3.9 ⭐</span>
-            </div>
-            <div class="tier-content">
-              @for (anime of tierList.C; track anime.idA) {
-                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
-              }
-            </div>
-          </div>
-
-          <div class="tier-row">
-            <div class="tier-label tier-d">
-              <span class="tier-letter">D</span>
-              <span class="tier-desc">< 2 ⭐</span>
-            </div>
-            <div class="tier-content">
-              @for (anime of tierList.D; track anime.idA) {
-                <img [src]="anime.image" class="tier-img" [title]="anime.titreA + ' - ⭐ ' + anime.noteA + '/10'">
-              }
-            </div>
-          </div>
+            </tbody>
+          </table>
         </div>
 
       </div>

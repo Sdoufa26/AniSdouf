@@ -1,174 +1,96 @@
-.dashboard-layout { display: flex; min-height: 100vh; background-color: #E5E7EB; }
+.dashboard-layout { display: flex; min-height: 100vh; background-color: #f4f6fb; }
 .main-content { flex-grow: 1; margin-left: 250px; padding: 40px; box-sizing: border-box; }
 
-/* --- DROITE : STATS & TOP 3 --- */
-.stats-column { flex-grow: 1; }
-h2 { color: #1E3A8A; margin-top: 0; margin-bottom: 24px; }
+h2 { color: #1E3A8A; margin-top: 0; margin-bottom: 24px; font-size: 22px; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; }
 .mt-40 { margin-top: 40px; }
 
-.stats-cards { display: flex; gap: 24px; }
+/* --- KPI CARDS (Style Power BI épuré) --- */
+.stats-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
 .stat-card {
-  background: white; padding: 24px; border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05); flex-grow: 1; text-align: center;
+  background: white; padding: 24px; border-radius: 8px; /* Coins plus droits */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+  display: flex; flex-direction: column; justify-content: space-between;
 }
-.stat-number { display: block; font-size: 36px; font-weight: bold; color: #1E3A8A; margin-bottom: 8px; }
-.stat-label { color: #6b7280; font-weight: bold; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; }
+.stat-card-header { display: flex; justify-content: space-between; color: #6b7280; font-size: 14px; margin-bottom: 12px; font-weight: 500;}
+.stat-number { font-size: 32px; font-weight: 500; color: #111827; }
 
-.top3-grid { display: flex; gap: 24px; }
-.top3-card {
-  background: white; border-radius: 12px; overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.05); flex: 1; position: relative;
+/* --- TOP 3 (Style Panel Widget au lieu du podium) --- */
+.top3-widget {
+  background: white; border-radius: 8px; padding: 24px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-top: 16px;
 }
-.rank-badge {
-  position: absolute; top: 12px; left: 12px; background: #facc15;
-  color: #854d0e; font-weight: bold; width: 30px; height: 30px;
-  display: flex; justify-content: center; align-items: center; border-radius: 50%;
-}
-.top3-image { width: 100%; height: 200px; object-fit: cover; }
-.top3-info { padding: 16px; text-align: center; }
-.top3-info h3 { margin: 0 0 8px 0; font-size: 16px; color: #111827; }
-.top3-note { font-weight: bold; color: #d97706; }
-.empty-top { color: #6b7280; font-style: italic; }
+.top3-list { display: flex; flex-direction: column; gap: 16px; }
+.top3-item { display: flex; align-items: center; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid #f1f5f9; }
+.top3-item:last-child { border-bottom: none; padding-bottom: 0; }
+.top3-rank { font-size: 18px; font-weight: 700; color: #1E3A8A; width: 30px; }
+.top3-img-small { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+.top3-details { flex-grow: 1; }
+.top3-details h3 { margin: 0 0 4px 0; font-size: 15px; color: #111827; }
+.top3-details span { color: #d97706; font-weight: 600; font-size: 14px; }
 
-.tierlist-container {
-  display: flex;
-  flex-direction: column;
-  gap: 4px; /* Le petit espace noir entre chaque ligne typique des tier lists */
-  background-color: #1a1a1a; /* Fond sombre pour faire ressortir les images */
-  padding: 8px;
-  border-radius: 12px;
-  margin-top: 16px;
-}
-
-.tier-row {
-  display: flex;
-  min-height: 85px;
-  background-color: #2b2b2b;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.tier-label {
-  width: 90px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #111;
-  text-shadow: 1px 1px 0 rgba(255,255,255,0.3);
-  flex-shrink: 0;
-}
-
-.tier-letter {
-  font-size: 28px;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.tier-desc {
-  font-size: 11px;
-  font-weight: 700;
-  opacity: 0.8;
-  margin-top: 4px;
-}
-
-/* 🔴 Nouveau design Premium pour le GOAT */
-.tier-goat {
-  background: linear-gradient(135deg, #FFD700, #FFA500); /* Dégradé Doré */
-  color: #fff;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
-}
-
-/* Couleurs Tiermaker classiques */
-.tier-s { background-color: #ff7f7f; } /* Rouge */
-.tier-a { background-color: #ffbf7f; } /* Orange */
-.tier-b { background-color: #ffff7f; } /* Jaune */
-.tier-c { background-color: #7fff7f; } /* Vert */
-.tier-d { background-color: #7fbfff; } /* Bleu */
-
-.tier-content {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 8px;
-  flex-grow: 1;
-  align-items: center;
-}
-
-.tier-img {
-  width: 55px;
-  height: 75px;
-  object-fit: cover;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-
-.tier-img:hover {
-  transform: scale(1.15) translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.8);
-  z-index: 10;
-}
-
-.top3-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between; /* Titre à gauche, filtres à droite */
-  flex-wrap: wrap;
-  gap: 16px;
-}
-
-.top3-header-row h2 {
-  margin: 0; /* Annule le margin-bottom pour l'alignement */
-}
-
-.genre-filters {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 24px;
-}
-
+/* --- FILTRES --- */
+.top3-header-row { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; border-bottom: none;}
+.genre-filters { display: flex; gap: 8px; flex-wrap: wrap; }
 .badge-filter {
-  padding: 8px 20px;
-  border-radius: 30px;
-  border: none;
-  background: #f1f5f9;
+  padding: 6px 16px; border-radius: 20px; border: 1px solid #e2e8f0; background: white;
+  color: #64748b; font-weight: 600; font-size: 12px; cursor: pointer; transition: all 0.2s;
+}
+.badge-filter:hover { background: #f8fafc; border-color: #cbd5e1; }
+.badge-filter.active { background: #1E3A8A; color: white; border-color: #1E3A8A; box-shadow: 0 4px 6px rgba(30, 58, 138, 0.2); }
+
+/* --- DATA TABLE (Remplacement de la Tier List) --- */
+.table-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  overflow-x: auto;
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.dashboard-table th {
+  background-color: #f8fafc;
   color: #64748b;
+  font-size: 12px;
   font-weight: 700;
+  text-transform: uppercase;
+  padding: 16px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.dashboard-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
   font-size: 14px;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  vertical-align: middle;
 }
 
-/* Effet au survol : on éclaircit légèrement et on lève le bouton */
-.badge-filter:hover {
-  background: #e2e8f0;
-  color: #1E3A8A;
-  transform: translateY(-2px);
-}
+.dashboard-table tr:hover { background-color: #f8fafc; }
+.dashboard-table tr:last-child td { border-bottom: none; }
 
-/* Effet Actif (Sélectionné) : La couleur principale avec une jolie ombre subtile */
-.badge-filter.active {
-  background: #1E3A8A;
-  color: white;
-  transform: scale(1.05);
-  box-shadow: 0 10px 15px -3px rgba(30, 58, 138, 0.3), 0 4px 6px -2px rgba(30, 58, 138, 0.15);
-}
+.table-rank { font-weight: 800; color: #94a3b8; }
+.table-img { width: 40px; height: 55px; object-fit: cover; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.table-title { font-weight: 700; color: #1E3A8A; }
+.table-genre { font-size: 12px; background: #f1f5f9; padding: 4px 8px; border-radius: 4px; color: #475569; }
+.table-note { font-weight: 800; color: #d97706; }
 
 @media (max-width: 768px) {
-  .main-content {
-    margin-left: 0; /* Enlève l'espace du menu latéral */
-    padding: 20px;  /* Réduit un peu l'espace sur les bords */
-  }
-
-  .stats-cards, .top3-grid {
-    flex-direction: column; /* Empile les cartes les unes sous les autres au lieu de côte à côte */
-  }
-
-  .top3-header-row {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+  .main-content { margin-left: 0; padding: 16px; padding-bottom: 100px; }
+  .top3-header-row { flex-direction: column; align-items: flex-start; }
 }
+
+/* --- PAGINATION --- */
+.pagination-controls { display: flex; justify-content: flex-end; align-items: center; gap: 16px; padding: 20px 0 0 0; }
+.page-btn { padding: 8px 16px; border: 1px solid #e2e8f0; background: white; border-radius: 6px; cursor: pointer; color: #1E3A8A; font-weight: 600; transition: 0.2s;}
+.page-btn:hover:not(:disabled) { background: #f8fafc; border-color: #cbd5e1; }
+.page-btn:disabled { color: #94a3b8; cursor: not-allowed; background: #f1f5f9; border-color: #f1f5f9; }
+.page-info { font-size: 14px; color: #64748b; font-weight: 500;}
