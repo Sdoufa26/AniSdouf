@@ -12,23 +12,23 @@
 
         <div class="stats-cards">
           <div class="stat-card">
-            <div class="stat-card-header"><span>Total Regardés</span> <span>📺</span></div>
+            <div class="stat-card-header"><span>Total Regardés</span></div>
             <span class="stat-number">{{ profile.totalRegardes }}</span>
           </div>
           <div class="stat-card">
-            <div class="stat-card-header"><span>En Cours</span> <span>⏳</span></div>
+            <div class="stat-card-header"><span>En Cours</span></div>
             <span class="stat-number">{{ profile.animesEnCours }}</span>
           </div>
           @if (genreStats.length > 0) {
             <div class="stat-card">
-              <div class="stat-card-header"><span>Genre Favori</span> <span>🥇</span></div>
-              <span class="stat-number">{{ genreStats[0].count }} <span class="genre-label">{{ genreStats[0].genre }}</span></span>
+              <div class="stat-card-header"><span>{{ genreStats[0].genre }}</span> <span>🥇</span></div>
+              <span class="stat-number">{{ genreStats[0].count }}</span>
             </div>
           }
           @if (genreStats.length > 1) {
             <div class="stat-card">
-              <div class="stat-card-header"><span>2ème Genre</span> <span>🥈</span></div>
-              <span class="stat-number">{{ genreStats[1].count }} <span class="genre-label">{{ genreStats[1].genre }}</span></span>
+              <div class="stat-card-header"><span>{{ genreStats[1].genre }}</span> <span>🥈</span></div>
+              <span class="stat-number">{{ genreStats[1].count }}</span>
             </div>
           }
         </div>
@@ -48,7 +48,7 @@
 
 
 
-        <h2 class="mt-40">Classement Détaillé (Data Table)</h2>
+        <h2 class="mt-40">Classement Détaillé</h2>
 
         <div class="table-container">
           <table class="dashboard-table">
@@ -57,16 +57,7 @@
               <th>Rang</th>
               <th>Aperçu</th>
               <th>Titre de l'œuvre</th>
-              <th>
-                <div style="display: flex; flex-direction: column; gap: 8px;">
-                  Genre Principal
-                  <select (change)="onFilterChange($event)" class="table-select">
-                    @for (g of availableGenres; track g) {
-                      <option [value]="g">{{ g }}</option>
-                    }
-                  </select>
-                </div>
-              </th>
+              <th>Genre Principal</th>
               <th>Épisodes</th>
               <th>Statut</th>
               <th>Note</th>
@@ -79,7 +70,7 @@
                   <td><img [src]="anime.image" class="table-img" alt="poster"></td>
                   <td class="table-title">{{ anime.titreA }}</td>
                   <td><span class="table-genre">{{ getPrimaryGenre(anime.genre) }}</span></td>
-                  <td>{{ anime.nbEpisodes || '?' }} ep.</td>
+                  <td>{{ anime.nbEpisodes || '?' }}</td>
                   <td>{{ anime.statutA }}</td>
                   <td class="table-note">⭐ {{ anime.noteA | number:'1.1-1' }}</td>
                 </tr>

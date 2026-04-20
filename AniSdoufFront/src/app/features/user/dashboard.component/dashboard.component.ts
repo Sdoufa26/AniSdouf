@@ -50,11 +50,15 @@ export class DashboardComponent implements OnInit {
 
         // 1. Calcul des genres (pour l'histogramme, les cards et le filtre)
         const genreCounts: { [key: string]: number } = {};
+        const motsExclus = ['Inconnu', 'Unknown', 'Award Winning', 'Kids', 'Gag Humor', 'School', 'Action', 'Comedy', 'Drama', 'Fantasy', 'Adventure'];
+
         animes.forEach(anime => {
           if (anime.genre && anime.genre !== 'Inconnu') {
             anime.genre.split(',').forEach(g => {
               const clean = g.trim();
-              genreCounts[clean] = (genreCounts[clean] || 0) + 1;
+              if (!motsExclus.includes(clean)) {
+                genreCounts[clean] = (genreCounts[clean] || 0) + 1;
+              }
             });
           }
         });
