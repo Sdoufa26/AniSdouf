@@ -30,3 +30,21 @@ h1 { color: #1e293b; margin: 0; font-size: 24px; }
 .pagination { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 20px; background: #f8fafc; }
 .pagination button { padding: 8px 16px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer; }
 .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Style du bouton Consulter */
+.btn-action {
+  background-color: transparent;
+  color: #1E3A8A;
+  border: 1px solid #1E3A8A;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-action:hover {
+  background-color: #eff6ff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}

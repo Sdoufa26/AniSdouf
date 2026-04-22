@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../../../shared/components/navbar.component/navbar.component';
@@ -26,7 +26,7 @@ export class AdminDashboardComponent implements OnInit {
   itemsPerPage: number = 8;
   totalPages: number = 1;
 
-  constructor(private adminService: AdminService) {}
+  constructor(private adminService: AdminService, private cdr : ChangeDetectorRef) {}
 
   ngOnInit() {
     this.adminService.getUsers().subscribe({
@@ -34,10 +34,12 @@ export class AdminDashboardComponent implements OnInit {
         this.users = data;
         this.applyFilters();
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error("Erreur Admin", err);
         this.loading = false;
+        this.cdr.detectChanges();
       }
     });
   }
@@ -55,10 +57,15 @@ export class AdminDashboardComponent implements OnInit {
   updatePagination() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     this.paginatedUsers = this.filteredUsers.slice(start, start + this.itemsPerPage);
+    this.cdr.detectChanges();
   }
 
   changePage(delta: number) {
     this.currentPage += delta;
     this.updatePagination();
+  }
+
+  consulterUtilisateur(user: UtilisateurResponse) {
+    alert(`🔍 Consultation du profil :\n\n- Pseudo : ${user.pseudo}\n- Email : ${user.mail}\n- Rôle : ${user.role}\n- ID : ${user.idU}`);
   }
 }
