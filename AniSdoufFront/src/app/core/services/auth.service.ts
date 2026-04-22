@@ -41,7 +41,7 @@ export class AuthService {
   private readonly TOKEN_KEY = 'token-anisdouf';
 
   // Le token est lu depuis sessionStorage au démarrage du service
-  private cachedUser: UtilisateurResponse | null = null;
+  private cachedUser: UtilisateurResponse | null = JSON.parse(sessionStorage.getItem('user-profile') || 'null');
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -64,6 +64,7 @@ export class AuthService {
     return this.http.get<UtilisateurResponse>(`https://anisdouf.onrender.com/api/profil`).pipe(
       tap(user => {
         this.cachedUser = user;
+        sessionStorage.setItem('user-profile', JSON.stringify(user));
       })
     );
   }
@@ -105,6 +106,7 @@ export class AuthService {
   /** Déconnecte l'utilisateur, supprime le token de sessionStorage et redirige */
   logout(): void {
     sessionStorage.removeItem(this.TOKEN_KEY);
+    sessionStorage.removeItem('user-profile');
     this.cachedUser = null;
     this.router.navigate(['/login']);
   }
