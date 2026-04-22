@@ -31,3 +31,19 @@ export const guestGuard: CanActivateFn = () => {
   router.navigate(['/']);
   return false;
 };
+
+/**
+ * Guard pour l'espace Administration.
+ * Bloque l'accès si l'utilisateur n'est pas connecté OU n'est pas ADMIN.
+ */
+export const adminGuard: CanActivateFn = () => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
+
+  if (auth.isLoggedIn() && auth.isAdmin()) {
+    return true;
+  }
+
+  router.navigate(['/']);
+  return false;
+};

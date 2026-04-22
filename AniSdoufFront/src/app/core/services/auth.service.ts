@@ -26,6 +26,7 @@ export interface UtilisateurResponse {
   pseudo: string;
   mail: string;
   avatar: string;
+  role?: string;
   animesTermines: number;
   animesEnCours: number;
   totalRegardes: number;
@@ -94,6 +95,11 @@ export class AuthService {
   /** Alias pour compatibilité — vérifie si l'utilisateur est connecté */
   isLoggedIn(): boolean {
     return this.isAuthenticated();
+  }
+
+  /** Vérifie si l'utilisateur est un admin */
+  isAdmin(): boolean {
+    return this.cachedUser?.role === 'ADMIN';
   }
 
   /** Déconnecte l'utilisateur, supprime le token de sessionStorage et redirige */

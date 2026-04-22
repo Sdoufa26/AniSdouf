@@ -1,0 +1,32 @@
+.admin-layout { display: flex; min-height: 100vh; background-color: #f8fafc; }
+.admin-content { flex-grow: 1; margin-left: 250px; padding: 40px; }
+
+.admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+h1 { color: #1e293b; margin: 0; font-size: 24px; }
+.subtitle { color: #64748b; font-size: 14px; margin: 4px 0 0 0; }
+
+.search-box input {
+  padding: 10px 16px; border-radius: 8px; border: 1px solid #e2e8f0;
+  width: 300px; font-size: 14px; outline: none; transition: border 0.2s;
+}
+.search-box input:focus { border-color: #3b82f6; }
+
+.table-card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); overflow: hidden; }
+.admin-table { width: 100%; border-collapse: collapse; text-align: left; }
+.admin-table th { background: #f1f5f9; padding: 16px; color: #475569; font-size: 12px; font-weight: 700; text-transform: uppercase; }
+.admin-table td { padding: 16px; border-bottom: 1px solid #f1f5f9; color: #1e293b; font-size: 14px; }
+
+.mini-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background: #e2e8f0; }
+.user-info { display: flex; align-items: center; gap: 12px; }
+.user-pseudo { font-weight: 600; }
+.user-id { font-family: monospace; color: #94a3b8; font-size: 12px; }
+
+.role-badge {
+  padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700;
+  background: #f1f5f9; color: #64748b; border: 1px solid #e2e8f0;
+}
+.role-badge.admin { background: #1e3a8a; color: white; border-color: #1e3a8a; }
+
+.pagination { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 20px; background: #f8fafc; }
+.pagination button { padding: 8px 16px; border-radius: 6px; border: 1px solid #e2e8f0; background: white; cursor: pointer; }
+.pagination button:disabled { opacity: 0.5; cursor: not-allowed; }

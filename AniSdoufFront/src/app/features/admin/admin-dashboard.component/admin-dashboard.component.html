@@ -1,0 +1,61 @@
+<div class="admin-layout">
+  <app-navbar></app-navbar>
+
+  <main class="admin-content">
+    <div class="admin-header">
+      <div>
+        <h1>Gestion des Utilisateurs</h1>
+        <p class="subtitle">Console d'administration AniSdouf</p>
+      </div>
+      <div class="search-box">
+        <input type="text" [(ngModel)]="searchTerm" (input)="applyFilters()" placeholder="Rechercher un pseudo ou email...">
+      </div>
+    </div>
+
+    @if (loading) {
+      <div class="loader">Accès à la base de données...</div>
+    } @else {
+      <div class="table-card">
+        <table class="admin-table">
+          <thead>
+          <tr>
+            <th>Utilisateur</th>
+            <th>Email</th>
+            <th>Rôle</th>
+            <th>ID Unique</th>
+            <th>Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (user of paginatedUsers; track user.idU) {
+              <tr>
+                <td>
+                  <div class="user-info">
+                    <img [src]="user.avatar" class="mini-avatar">
+                    <span class="user-pseudo">{{ user.pseudo }}</span>
+                  </div>
+                </td>
+                <td>{{ user.mail }}</td>
+                <td>
+                  <span class="role-badge" [class.admin]="user.role === 'ADMIN'">
+                    {{ user.role }}
+                  </span>
+                </td>
+                <td class="user-id">{{ user.idU }}</td>
+                <td>
+                  <button class="btn-action">Consulter</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+
+        <div class="pagination">
+          <button (click)="changePage(-1)" [disabled]="currentPage === 1">Précédent</button>
+          <span>Page {{ currentPage }} / {{ totalPages }}</span>
+          <button (click)="changePage(1)" [disabled]="currentPage === totalPages">Suivant</button>
+        </div>
+      </div>
+    }
+  </main>
+</div>

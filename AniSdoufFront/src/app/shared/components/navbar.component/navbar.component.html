@@ -9,6 +9,9 @@
     <li><a routerLink="/my-list" routerLinkActive="active">Ma Liste</a></li>
     <li><a routerLink="/dashboard" routerLinkActive="active">Mes Statistiques</a></li>
     <li><a routerLink="/profile" routerLinkActive="active">Mon Profil</a></li>
+    @if (isAdmin()) {
+      <li><a routerLink="/admin" routerLinkActive="active" style="color: #d97706; font-weight: bold;">Administration</a></li>
+    }
   </ul>
 
   <div class="navbar-auth">

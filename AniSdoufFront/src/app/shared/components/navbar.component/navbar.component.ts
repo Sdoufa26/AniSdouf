@@ -11,6 +11,10 @@ import { AuthService } from '../../../core/services/auth.service';
 export class NavbarComponent {
   constructor(private authService : AuthService) {}
 
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
   onLogout() : void {
     this.authService.logout();
   }
