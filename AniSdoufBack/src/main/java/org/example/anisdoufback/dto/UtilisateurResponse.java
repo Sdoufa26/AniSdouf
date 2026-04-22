@@ -12,6 +12,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+// --- Imports Projet ---
+import org.example.anisdoufback.model.Utilisateur;
+
 /**
  * Objet de Transfert de Données (DTO) représentant le profil public de l'utilisateur.
  * Contient les informations d'identité ainsi que les statistiques agrégées pour le Dashboard.
@@ -25,6 +28,7 @@ public class UtilisateurResponse implements Serializable {
     private String pseudo;
     private String mail;
     private String avatar;
+    private Utilisateur.RoleUtilisateur role;
     private Collection<NoteAnimeResponse> notesA;
     private Collection<NoteEpisodeResponse> notesE;
     private List<NoteAnimeResponse> topAnimes;

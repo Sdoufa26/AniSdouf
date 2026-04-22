@@ -44,7 +44,7 @@ public class AuthService implements UserDetailsService {
         return User.builder()
                 .username(utilisateur.getMail())
                 .password(utilisateur.getMdp())
-                .roles("USER")
+                .roles(utilisateur.getRole().toString())
                 .build();
     }
 
@@ -103,6 +103,7 @@ public class AuthService implements UserDetailsService {
                 .idU(utilisateur.getIdU())
                 .pseudo(utilisateur.getPseudo())
                 .mail(utilisateur.getMail())
+                .role(utilisateur.getRole())
                 .build();
     }
 }

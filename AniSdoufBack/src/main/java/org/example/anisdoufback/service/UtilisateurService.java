@@ -51,6 +51,7 @@ public class UtilisateurService {
                 .mail(utilisateur.getMail())
                 .pseudo(utilisateur.getPseudo())
                 .avatar(utilisateur.getAvatar())
+                .role(utilisateur.getRole())
                 .animesTermines(termines)
                 .animesEnCours(enCours)
                 .totalRegardes(termines + enCours)
@@ -73,6 +74,22 @@ public class UtilisateurService {
         utilisateurRepository.save(utilisateur);
 
         return getMonProfil(email);
+    }
+
+    /**
+     * Récupère la liste de tous les utilisateurs pour le panel Administrateur.
+     * Renvoie une version allégée du profil (sans les tops animes pour éviter de surcharger la base).
+     */
+    public List<UtilisateurResponse> getAllUtilisateurs() {
+        return utilisateurRepository.findAll().stream()
+                .map(utilisateur -> UtilisateurResponse.builder()
+                        .idU(utilisateur.getIdU())
+                        .pseudo(utilisateur.getPseudo())
+                        .mail(utilisateur.getMail())
+                        .avatar(utilisateur.getAvatar())
+                        .role(utilisateur.getRole())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     /**

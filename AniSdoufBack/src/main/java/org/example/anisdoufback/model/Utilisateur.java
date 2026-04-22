@@ -39,6 +39,10 @@ public class Utilisateur implements Serializable {
     @NotNull
     private String mdp;
 
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private RoleUtilisateur role = RoleUtilisateur.USER;
+
     @Builder.Default
     @Column(name = "avatar")
     private String avatar = "avatar1.png";
@@ -49,4 +53,7 @@ public class Utilisateur implements Serializable {
     @OneToMany(mappedBy = "utilisateur")
     private Collection<NoteEpisode> notesE;
 
+    public enum RoleUtilisateur {
+        USER, ADMIN
+    }
 }
