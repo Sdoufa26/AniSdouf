@@ -16,7 +16,6 @@ h1 { color: #1e293b; margin: 0; font-size: 24px; }
 .admin-table th { background: #f1f5f9; padding: 16px; color: #475569; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .admin-table td { padding: 16px; border-bottom: 1px solid #f1f5f9; color: #1e293b; font-size: 14px; }
 
-.mini-avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; background: #e2e8f0; }
 .user-info { display: flex; align-items: center; gap: 12px; }
 .user-pseudo { font-weight: 600; }
 .user-id { font-family: monospace; color: #94a3b8; font-size: 12px; }
