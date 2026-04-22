@@ -21,7 +21,7 @@ export class App implements OnInit {
     injectAnalytics();
     injectSpeedInsights();
 
-    this.http.get('https://anisdouf.onrender.com', { responseType: 'text' })
+    this.http.get('https://anisdouf.onrender.com/api/animes/suggestions', { responseType: 'text' })
       .pipe(
         catchError(() => of(null))
       )
